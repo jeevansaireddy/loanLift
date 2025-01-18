@@ -1,1 +1,162 @@
-<p>partnermyaccount works!</p>
+<div class="container">
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <div class="logo">LoanLift</div>
+        <div class="nav-links">
+          <span routerLink="/partner/leads">Customers</span>
+          <span routerLink="/partner/dashboard" >Dashboard</span>
+          <span routerLink="/partner/myaccount">My Account</span>
+        </div>
+        <div class="user-actions">
+          <button class="logout-btn" (click)="onLogout()">
+            Logout
+          </button>
+        </div>
+      </div>
+  
+    <!-- Content Area -->
+    <div class="content">
+      <div class="header-content">
+        <h1>Account</h1>
+      </div>
+  
+      <!-- Tabs -->
+      <div class="tabs-container">
+        <div class="tabs">
+          <button 
+            class="tab-button" 
+            [class.active]="activeTab === 'company'"
+            (click)="setActiveTab('company')">
+            Company Details
+          </button>
+          <button 
+            class="tab-button" 
+            [class.active]="activeTab === 'projects'"
+            (click)="setActiveTab('projects')">
+            Projects Information
+          </button>
+          <button 
+            class="tab-button" 
+            [class.active]="activeTab === 'spoc'"
+            (click)="setActiveTab('spoc')">
+            SPOC Details
+          </button>
+          <button 
+            class="tab-button" 
+            [class.active]="activeTab === 'documents'"
+            (click)="setActiveTab('documents')">
+            Documents
+          </button>
+        </div>
+  
+        <!-- Company Details Form -->
+        <div class="tab-content" *ngIf="activeTab === 'company'">
+          <!-- Previous HTML remains the same until form fields -->
+<form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>CORPORATE NAME</label>
+        <input 
+          type="text" 
+          formControlName="corporateName"
+          [class.error-input]="hasError('corporateName')"
+          placeholder="Enter corporate name">
+        <div class="error-message" *ngIf="hasError('corporateName')">
+          {{ getErrorMessage('corporateName') }}
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>COMPANY PAN</label>
+        <input 
+          type="text" 
+          formControlName="companyPan"
+          [class.error-input]="hasError('companyPan')"
+          placeholder="COMPANY PAN">
+        <div class="error-message" *ngIf="hasError('companyPan')">
+          {{ getErrorMessage('companyPan') }}
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>GSTIN</label>
+        <input 
+          type="text" 
+          formControlName="gstin"
+          [class.error-input]="hasError('gstin')"
+          placeholder="GSTIN">
+        <div class="error-message" *ngIf="hasError('gstin')">
+          {{ getErrorMessage('gstin') }}
+        </div>
+      </div>
+  
+      <div class="form-group full-width">
+        <label>COMPANY ADDRESS</label>
+        <input 
+          type="text" 
+          formControlName="companyAddress"
+          [class.error-input]="hasError('companyAddress')"
+          placeholder="Enter company address">
+        <div class="error-message" *ngIf="hasError('companyAddress')">
+          {{ getErrorMessage('companyAddress') }}
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>PINCODE</label>
+        <input 
+          type="text" 
+          formControlName="pincode"
+          [class.error-input]="hasError('pincode')"
+          placeholder="Enter locality pincode">
+        <div class="error-message" *ngIf="hasError('pincode')">
+          {{ getErrorMessage('pincode') }}
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>STATE</label>
+        <input 
+          type="text" 
+          formControlName="state"
+          placeholder="State will be based on your pincode">
+      </div>
+  
+      <div class="form-group">
+        <label>CITY</label>
+        <input 
+          type="text" 
+          formControlName="city"
+          placeholder="City will be based on your pincode">
+      </div>
+    </div>
+  
+    <div class="form-actions">
+      <button 
+        *ngIf="!isEditMode" 
+        type="button" 
+        class="btn-edit"
+        (click)="onEdit()">
+        Edit
+      </button>
+  
+      <ng-container *ngIf="isEditMode">
+        <button 
+          type="button" 
+          class="btn-discard" 
+          (click)="onDiscard()">
+          Discard
+        </button>
+        <button 
+          type="submit" 
+          class="btn-save" 
+          [disabled]="!companyForm.valid || !companyForm.dirty">
+          Save
+        </button>
+      </ng-container>
+    </div>
+  </form>
+        </div>
+      </div>
+    </div>
+  </div>

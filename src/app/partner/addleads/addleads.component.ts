@@ -2,17 +2,26 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router, RouterLink} from '@angular/router';
 
 
 @Component({
   selector: 'app-addleads',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './addleads.component.html',
   styleUrl: './addleads.component.scss'
 })
 export class AddleadsComponent {
   leadForm: FormGroup;
+  uploadedFiles: { [key: string]: File[] } = {
+    panCardDoc: [],
+    aadhaarCardDoc: [],
+    salarySlips: [],
+    bankStatements: [],
+    form16: []
+  };
+  
   formFields = [
     // General Information Section
     { section: 'General Information', id: 'full-name', label: 'Full Name', type: 'text', inputType: 'text', controlName: 'fullName', placeholder: 'Enter name', errorMessage: '' },
@@ -40,7 +49,7 @@ export class AddleadsComponent {
     { section: 'Professional Information', id: 'employment-type', label: 'Type of Employment', type: 'select', controlName: 'employmentType', placeholder: 'Please select one option', options: ['Self-Employed', 'Salaried'], errorMessage: '' },
     { section: 'Professional Information', id: 'company-name', label: 'Company Name', type: 'text', inputType: 'text', controlName: 'companyName', placeholder: 'Enter company name', errorMessage: 'Company name is required.' },
     { section: 'Professional Information', id: 'monthly-income', label: 'Monthly Income', type: 'text', inputType: 'number', controlName: 'monthlyIncome', placeholder: 'Enter your average net monthly income', errorMessage: 'Monthly income is required.' },
-    { section: 'Professional Information', id: 'official-mail', label: 'Official Mail ID', type: 'email', inputType: 'email', controlName: 'officialMail', placeholder: 'e.g. vivek@easiloan.com', errorMessage: 'Enter a valid official email.' },
+    { section: 'Professional Information', id: 'official-mail', label: 'Official Mail ID', type: 'email', inputType: 'email', controlName: 'officialMail', placeholder: 'e.g. mohan@loanlift.com', errorMessage: 'Enter a valid official email.' },
     { section: 'Professional Information', id: 'work-experience', label: 'Overall Work Experience (in years)', type: 'text', inputType: 'number', controlName: 'workExperience', placeholder: 'Enter total experience in years', errorMessage: 'Work experience is required.' },
     { section: 'Professional Information', id: 'existing-emis', label: 'Existing EMIs (Specify Amount)', type: 'text', inputType: 'number', controlName: 'existingEMIs', placeholder: 'Enter your existing monthly EMIs', errorMessage: '' },
     { section: 'Professional Information', id: 'annual-income', label: 'Annual Income', type: 'text', inputType: 'number', controlName: 'annualIncome', placeholder: 'Enter your annual income', errorMessage: 'Annual income is required.' },
@@ -156,7 +165,7 @@ export class AddleadsComponent {
   ];
   
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.leadForm = this.fb.group({
       fullName: ['', Validators.required],
       gender: ['', Validators.required],
@@ -197,21 +206,125 @@ export class AddleadsComponent {
       // pincode: [''],
       // state: [''],
       // city: [''],
-      panCardDoc: ['', Validators.required],
-    aadhaarCardDoc: ['', Validators.required],
-    salarySlips: ['', Validators.required],
-    bankStatements: ['', Validators.required],
-    form16: ['', Validators.required],
+      panCardDoc: [[], Validators.required],
+    aadhaarCardDoc: [[], Validators.required],
+    salarySlips: [[], Validators.required],
+    bankStatements: [[], Validators.required],
+    form16: [[], Validators.required],
       closingManager: ['', Validators.required]
+      
     });
   
   }  
 
+  onLogout() {
+    // Clear any stored data
+    localStorage.clear();
+    // Navigate to login page
+    this.router.navigate(['/partner/login']);
+  }
+
+  getFiles(controlName: string): File[] {
+    return this.uploadedFiles[controlName] || [];
+  }
+
+  getMaxFiles(controlName: string): number {
+    return controlName === 'salarySlips' ? 3 : 1;
+  }
+
+  removeFile(controlName: string, event: Event, index: number) {
+    event.stopPropagation();
+    
+    if (this.uploadedFiles[controlName]) {
+      this.uploadedFiles[controlName].splice(index, 1);
+      
+      // Set form validation errors if no files remain
+      if (this.uploadedFiles[controlName].length === 0) {
+        this.leadForm.get(controlName)?.setErrors({ required: true });
+      }
+      
+      this.leadForm.get(controlName)?.markAsTouched();
+    }
+  }
+
+  onFileChange(event: any, controlName: string) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Initialize array if it doesn't exist
+    if (!this.uploadedFiles[controlName]) {
+      this.uploadedFiles[controlName] = [];
+    }
+
+    const maxFiles = this.getMaxFiles(controlName);
+
+    // Check if maximum files limit reached
+    if (this.uploadedFiles[controlName].length >= maxFiles) {
+      alert(`Maximum ${maxFiles} file${maxFiles > 1 ? 's' : ''} allowed`);
+      event.target.value = '';
+      return;
+    }
+
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      this.leadForm.get(controlName)?.setErrors({
+        fileSize: true
+      });
+      event.target.value = '';
+      return;
+    }
+
+    // Validate file type
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+    if (!allowedTypes.includes(file.type)) {
+      this.leadForm.get(controlName)?.setErrors({
+        fileType: true
+      });
+      event.target.value = '';
+      return;
+    }
+
+    // Add file to array
+    this.uploadedFiles[controlName].push(file);
+    
+    // Clear any previous errors
+    if (this.uploadedFiles[controlName].length > 0) {
+      this.leadForm.get(controlName)?.setErrors(null);
+    }
+
+    // Reset file input
+    event.target.value = '';
+    this.leadForm.get(controlName)?.markAsTouched();
+  }
+
+  getFileName(controlName: string): string {
+    if (controlName === 'salarySlips') {
+      return ''; // We'll handle payslip display separately
+    }
+    const control = this.leadForm.get(controlName);
+    return control?.value || '';
+  }
+ 
+
   onSubmit() {
     if (this.leadForm.valid) {
-      console.log('Form Submitted', this.leadForm.value);
-    } else {
-      console.log('Form Invalid');
+      const formData = new FormData();
+      
+      // Append regular form values
+      Object.keys(this.leadForm.value).forEach(key => {
+        if (this.uploadedFiles[key]) {
+          // Append files with index
+          this.uploadedFiles[key].forEach((file, index) => {
+            formData.append(`${key}_${index}`, file);
+          });
+        } else {
+          // Append regular form values
+          formData.append(key, this.leadForm.value[key]);
+        }
+      });
+
+      console.log('Form Submitted with files');
+      // Send formData to your API
     }
   }
 
@@ -226,25 +339,7 @@ export class AddleadsComponent {
   }
   
   onCancel() {
-    // Perform the desired action on cancel
-    console.log('Cancel button clicked');
     // Example: Navigate back or reset the form
     this.leadForm.reset();
   }
-
-  onFileChange(event: any, controlName: string) {
-    const file = event.target.files[0];
-    if (file) {
-      this.leadForm.get(controlName)?.setValue(file);
-      
-      // Get the upload box element
-      const uploadBox = event.target.parentElement;
-      const uploadText = uploadBox.querySelector('.upload-text');
-      if (uploadText) {
-        uploadText.textContent = file.name;
-      }
-    }
   }
-  
-
-}
