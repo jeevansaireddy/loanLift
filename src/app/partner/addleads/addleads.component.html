@@ -14,7 +14,7 @@
     <div class="content">
       <div class="header">
         <div class="header-content">
-          <h1>Lead Details</h1>
+          <h1>Add Lead</h1>
           <button class="cancel-button" type="button" (click)="onCancel()">Cancel</button>
         </div>
       </div>
@@ -64,6 +64,26 @@
                     [id]="field.id"
                     [formControlName]="field.controlName"
                   />
+                  <div
+  *ngSwitchCase="'file'"
+  class="file-upload-container"
+>
+  <div class="file-upload-box">
+    <input
+      type="file"
+      [id]="field.id"
+      [formControlName]="field.controlName"
+      (change)="onFileChange($event, field.controlName)"
+      accept=".pdf,.jpg,.jpeg,.png"
+      class="file-input"
+    />
+    <div class="file-upload-content">
+      <i class="upload-icon">📄</i>
+      <span class="upload-text">Click to upload {{ field.label }}</span>
+      <span class="upload-subtext">Support files: PDF, JPG, PNG</span>
+    </div>
+  </div>
+</div>
                 </ng-container>
   
                 <div
@@ -86,8 +106,10 @@
         </ng-container>
   
         <div class="actions">
-          <button type="submit" [disabled]="leadForm.invalid">Submit</button>
-        </div>
+            <button type="submit" [disabled]="leadForm.invalid" class="submit-button">
+              Submit
+            </button>
+          </div>
       </form>
     </div>
   </div>

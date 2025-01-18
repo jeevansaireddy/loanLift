@@ -52,100 +52,105 @@ export class AddleadsComponent {
     { section: 'Loan Requirements', id: 'loan-tenure', label: 'Loan Tenure', type: 'text', inputType: 'number', controlName: 'loanTenure', placeholder: 'Enter loan tenure in years', errorMessage: '' },
     
     // Property Details Section
-      {
-        section: 'Property Details',
-        id: 'property-identified',
-        label: 'Is Property Identified?',
-        type: 'select',
-        controlName: 'propertyIdentified',
-        placeholder: 'Please select one option',
-        options: ['Yes', 'No'],
-        errorMessage: ''
-      },
-      {
-        section: 'Property Details',
-        id: 'project-name',
-        label: 'Project Name',
-        type: 'text',
-        controlName: 'projectName',
-        placeholder: 'Enter project name',
-        errorMessage: 'Project Name is required'
-      },
-      {
-        section: 'Property Details',
-        id: 'developer-name',
-        label: 'Developer Name',
-        type: 'text',
-        controlName: 'developerName',
-        placeholder: 'Enter developer\'s name',
-        errorMessage: 'Developer Name is required'
-      },
-      {
-        section: 'Property Details',
-        id: 'booking-date',
-        label: 'Booking Date',
-        type: 'date',
-        controlName: 'bookingDate',
-        placeholder: 'DD / MM / YYYY',
-        errorMessage: 'Booking Date is required'
-      },
-      {
-        section: 'Property Details',
-        id: 'typology',
-        label: 'Typology',
-        type: 'select',
-        controlName: 'typology',
-        placeholder: 'Please select one option',
-        options: ['Apartment', 'Villa', 'Plot'],
-        errorMessage: ''
-      },
-      {
-        section: 'Property Details',
-        id: 'stage-of-construction',
-        label: 'Stage of Construction',
-        type: 'select',
-        controlName: 'stageOfConstruction',
-        placeholder: 'Please select one option',
-        options: ['Under Construction', 'Ready to Move'],
-        errorMessage: ''
-      },
-      {
-        section: 'Property Details',
-        id: 'property-value',
-        label: 'Property Value',
-        type: 'text',
-        controlName: 'propertyValue',
-        placeholder: 'Enter property value',
-        errorMessage: 'Property Value must be greater than 0'
-      },
-      {
-        section: 'Property Details',
-        id: 'pincode',
-        label: 'Pincode',
-        type: 'text',
-        controlName: 'pincode',
-        placeholder: 'Enter locality pincode',
-        errorMessage: 'Pincode is required'
-      },
-      {
-        section: 'Property Details',
-        id: 'state',
-        label: 'State',
-        type: 'text',
-        controlName: 'state',
-        placeholder: 'State will be based on your pincode',
-        errorMessage: ''
-      },
-      {
-        section: 'Property Details',
-        id: 'city',
-        label: 'City',
-        type: 'text',
-        controlName: 'city',
-        placeholder: 'City will be based on your pincode',
-        errorMessage: ''
-      },
-    
+      // {
+      //   section: 'Property Details',
+      //   id: 'property-identified',
+      //   label: 'Is Property Identified?',
+      //   type: 'select',
+      //   controlName: 'propertyIdentified',
+      //   placeholder: 'Please select one option',
+      //   options: ['Yes', 'No'],
+      //   errorMessage: ''
+      // },
+      // {
+      //   section: 'Property Details',
+      //   id: 'project-name',
+      //   label: 'Project Name',
+      //   type: 'text',
+      //   controlName: 'projectName',
+      //   placeholder: 'Enter project name',
+      //   errorMessage: 'Project Name is required'
+      // },
+      // {
+      //   section: 'Property Details',
+      //   id: 'developer-name',
+      //   label: 'Developer Name',
+      //   type: 'text',
+      //   controlName: 'developerName',
+      //   placeholder: 'Enter developer\'s name',
+      //   errorMessage: 'Developer Name is required'
+      // },
+      // {
+      //   section: 'Property Details',
+      //   id: 'booking-date',
+      //   label: 'Booking Date',
+      //   type: 'date',
+      //   controlName: 'bookingDate',
+      //   placeholder: 'DD / MM / YYYY',
+      //   errorMessage: 'Booking Date is required'
+      // },
+      // {
+      //   section: 'Property Details',
+      //   id: 'typology',
+      //   label: 'Typology',
+      //   type: 'select',
+      //   controlName: 'typology',
+      //   placeholder: 'Please select one option',
+      //   options: ['Apartment', 'Villa', 'Plot'],
+      //   errorMessage: ''
+      // },
+      // {
+      //   section: 'Property Details',
+      //   id: 'stage-of-construction',
+      //   label: 'Stage of Construction',
+      //   type: 'select',
+      //   controlName: 'stageOfConstruction',
+      //   placeholder: 'Please select one option',
+      //   options: ['Under Construction', 'Ready to Move'],
+      //   errorMessage: ''
+      // },
+      // {
+      //   section: 'Property Details',
+      //   id: 'property-value',
+      //   label: 'Property Value',
+      //   type: 'text',
+      //   controlName: 'propertyValue',
+      //   placeholder: 'Enter property value',
+      //   errorMessage: 'Property Value must be greater than 0'
+      // },
+      // {
+      //   section: 'Property Details',
+      //   id: 'pincode',
+      //   label: 'Pincode',
+      //   type: 'text',
+      //   controlName: 'pincode',
+      //   placeholder: 'Enter locality pincode',
+      //   errorMessage: 'Pincode is required'
+      // },
+      // {
+      //   section: 'Property Details',
+      //   id: 'state',
+      //   label: 'State',
+      //   type: 'text',
+      //   controlName: 'state',
+      //   placeholder: 'State will be based on your pincode',
+      //   errorMessage: ''
+      // },
+      // {
+      //   section: 'Property Details',
+      //   id: 'city',
+      //   label: 'City',
+      //   type: 'text',
+      //   controlName: 'city',
+      //   placeholder: 'City will be based on your pincode',
+      //   errorMessage: ''
+      // },
+    // Documents Section
+{ section: 'Documents', id: 'pan-card', label: 'PAN Card', type: 'file', controlName: 'panCardDoc', errorMessage: 'PAN Card document is required.' },
+{ section: 'Documents', id: 'aadhaar-card', label: 'Aadhaar Card', type: 'file', controlName: 'aadhaarCardDoc', errorMessage: 'Aadhaar Card document is required.' },
+{ section: 'Documents', id: 'salary-slips', label: 'Last 3 Months Salary Slips', type: 'file', controlName: 'salarySlips', errorMessage: 'Salary slips are required.' },
+{ section: 'Documents', id: 'bank-statements', label: 'Bank Statements', type: 'file', controlName: 'bankStatements', errorMessage: 'Bank statements are required.' },
+{ section: 'Documents', id: 'form-16', label: 'Form 16', type: 'file', controlName: 'form16', errorMessage: 'Form 16 is required.' },
     // Other Section
     { section: 'Other', id: 'closing-manager', label: 'Closing Manager', type: 'text', inputType: 'text', controlName: 'closingManager', placeholder: 'Enter name of closing manager', errorMessage: 'Closing manager name is required.' }
   ];
@@ -182,59 +187,25 @@ export class AddleadsComponent {
       loanProduct: ['', Validators.required],
       loanAmount: ['', Validators.required],
       loanTenure: [''],
-      propertyIdentified: ['No', Validators.required],
-      projectName: [''],
-      developerName: [''],
-      bookingDate: [''],
-      typology: [''],
-      stageOfConstruction: [''],
-      propertyValue: [''],
-      pincode: [''],
-      state: [''],
-      city: [''],
+      // propertyIdentified: ['No', Validators.required],
+      // projectName: [''],
+      // developerName: [''],
+      // bookingDate: [''],
+      // typology: [''],
+      // stageOfConstruction: [''],
+      // propertyValue: [''],
+      // pincode: [''],
+      // state: [''],
+      // city: [''],
+      panCardDoc: ['', Validators.required],
+    aadhaarCardDoc: ['', Validators.required],
+    salarySlips: ['', Validators.required],
+    bankStatements: ['', Validators.required],
+    form16: ['', Validators.required],
       closingManager: ['', Validators.required]
     });
-    this.leadForm.get('propertyIdentified')?.valueChanges.subscribe(value => {
-      this.toggleAdditionalFields(value);
-    });
-  }
-
-  resetAdditionalFields() {
-    const additionalFields = ['projectName', 'developerName', 'bookingDate'];
-    additionalFields.forEach((field) => {
-      this.leadForm.get(field)?.reset();
-    });
-  }
-
-  toggleAdditionalFields(value: string): void {
-    if (value === 'Yes') {
-      this.setValidatorsForAdditionalFields();
-    } else {
-      this.clearValidatorsForAdditionalFields();
-    }
-  }
-
-  setValidatorsForAdditionalFields(): void {
-    this.leadForm.get('projectName')?.setValidators(Validators.required);
-    this.leadForm.get('developerName')?.setValidators(Validators.required);
-    this.leadForm.get('bookingDate')?.setValidators(Validators.required);
-    this.leadForm.get('propertyValue')?.setValidators([Validators.required, Validators.min(1)]);
-    this.leadForm.get('pincode')?.setValidators(Validators.required);
-
-    this.leadForm.updateValueAndValidity();
-  }
-
-  clearValidatorsForAdditionalFields(): void {
-    this.leadForm.get('projectName')?.clearValidators();
-    this.leadForm.get('developerName')?.clearValidators();
-    this.leadForm.get('bookingDate')?.clearValidators();
-    this.leadForm.get('propertyValue')?.clearValidators();
-    this.leadForm.get('pincode')?.clearValidators();
-
-    this.leadForm.updateValueAndValidity();
-  }
-
   
+  }  
 
   onSubmit() {
     if (this.leadForm.valid) {
@@ -259,6 +230,20 @@ export class AddleadsComponent {
     console.log('Cancel button clicked');
     // Example: Navigate back or reset the form
     this.leadForm.reset();
+  }
+
+  onFileChange(event: any, controlName: string) {
+    const file = event.target.files[0];
+    if (file) {
+      this.leadForm.get(controlName)?.setValue(file);
+      
+      // Get the upload box element
+      const uploadBox = event.target.parentElement;
+      const uploadText = uploadBox.querySelector('.upload-text');
+      if (uploadText) {
+        uploadText.textContent = file.name;
+      }
+    }
   }
   
 
