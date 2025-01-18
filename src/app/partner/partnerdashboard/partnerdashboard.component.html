@@ -1,0 +1,47 @@
+<!-- app.component.html -->
+<div class="container">
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
+      <div class="logo">easiloan</div>
+      <div class="nav-links">
+        <span>Customers</span>
+        <span>Dashboard</span>
+        <span>My Account</span>
+      </div>
+      <div class="user-icon">
+        <button>&#128100;</button>
+      </div>
+    </div>
+  
+    <!-- Customer Leads Section -->
+    <div class="content">
+      <div class="header">
+        <h1>Customer Leads</h1>
+        <a href="#">DOWNLOAD FORMAT FILE</a>
+      </div>
+  
+      <div class="search-bar">
+        <input type="text" placeholder="Enter mobile number / name" />
+        <button>🔍</button>
+        <button class="add-lead">
+                <a routerLink="/partner/addlead">+ Add Lead</a>
+        </button>
+      </div>
+  
+      <table>
+        <thead>
+          <tr>
+            <th>Applicant ID</th>
+            <th>Customer Details</th>
+            <th>Product Interest</th>
+            <th>Loan Amount</th>
+            <th>Application</th>
+            <th>Documents</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Add rows dynamically here -->
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -1,0 +1,94 @@
+<div class="container">
+    <div class="top-nav">
+      <div class="logo">easiloan</div>
+      <div class="nav-links">
+        <span>Customers</span>
+        <span>Dashboard</span>
+        <span>My Account</span>
+      </div>
+      <div class="user-icon">
+        <button>&#128100;</button>
+      </div>
+    </div>
+  
+    <div class="content">
+      <div class="header">
+        <div class="header-content">
+          <h1>Lead Details</h1>
+          <button class="cancel-button" type="button" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+  
+      <form [formGroup]="leadForm" (ngSubmit)="onSubmit()" class="form-section">
+        <ng-container *ngFor="let section of getUniqueSections()">
+          <h2>{{ section }}</h2>
+          <div class="form-grid">
+            <ng-container *ngFor="let field of getFieldsBySection(section)">
+              <div class="form-group">
+                <label [for]="field.id">{{ field.label }}</label>
+                <ng-container [ngSwitch]="field.type">
+                  <input
+                    *ngSwitchCase="'text'"
+                    [type]="field.inputType || 'text'"
+                    [id]="field.id"
+                    [formControlName]="field.controlName"
+                    [placeholder]="field.placeholder"
+                  />
+                  <input
+                    *ngSwitchCase="'email'"
+                    type="email"
+                    [id]="field.id"
+                    [formControlName]="field.controlName"
+                    [placeholder]="field.placeholder"
+                  />
+                  <input
+                    *ngSwitchCase="'date'"
+                    type="date"
+                    [id]="field.id"
+                    [formControlName]="field.controlName"
+                    [placeholder]="field.placeholder"
+                  />
+                  <select
+                    *ngSwitchCase="'select'"
+                    [id]="field.id"
+                    [formControlName]="field.controlName"
+                  >
+                    <option value="">{{ field.placeholder }}</option>
+                    <option *ngFor="let option of field.options" [value]="option">
+                      {{ option }}
+                    </option>
+                  </select>
+                  <input
+                    *ngSwitchCase="'checkbox'"
+                    type="checkbox"
+                    [id]="field.id"
+                    [formControlName]="field.controlName"
+                  />
+                </ng-container>
+  
+                <div
+                  *ngIf="(leadForm.get(field.controlName)?.touched || leadForm.get(field.controlName)?.dirty) && leadForm.get(field.controlName)?.invalid"
+                  class="error"
+                >
+                  <div *ngIf="leadForm.get(field.controlName)?.errors?.['required']">
+                    {{ field.label }} is required.
+                  </div>
+                  <div *ngIf="leadForm.get(field.controlName)?.errors?.['pattern']">
+                    {{ field.errorMessage }}
+                  </div>
+                  <div *ngIf="leadForm.get(field.controlName)?.errors?.['email']">
+                    Enter a valid email address.
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+  
+        <div class="actions">
+          <button type="submit" [disabled]="leadForm.invalid">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
