@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class CustomerloginComponent {
   signupForm: FormGroup;
     signinForm: FormGroup;
-    isSignup = true;
+    isSignup = false;
     submitted = false; // Add this to track form submission attempts
   
     constructor(private fb: FormBuilder) {

@@ -32,8 +32,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
-  "https://unpkg.com/@mantine/core/lib/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -53,7 +52,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumError": "10kb"
                 }
               ],
               "outputHashing": "all"

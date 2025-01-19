@@ -1,1 +1,240 @@
-<p>homepage works!</p>
+<!-- home.component.html -->
+<!-- Navigation Bar -->
+<header>
+    <nav>
+        <div class="logo">
+            <div class="logo-container">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" class="bank-logo">
+                <rect x="10" y="10" width="40" height="40" rx="8" fill="#2563eb" />
+                <path d="M30 40 L20 30 L30 20 L40 30 L30 40" fill="white" />
+                <path d="M25 35 L35 35 L30 28 Z" fill="white" />
+                <text x="60" y="38" font-family="Arial" font-weight="bold" font-size="24" fill="#1e40af">
+                  Loan<tspan fill="#2563eb">Lift</tspan>
+                </text>
+              </svg>
+            </div>
+          </div>
+      <ul>
+        <li>
+          <a routerLink="/partner/login" class="cta-button">Login as Partner</a>
+        </li>
+        <li>
+          <a routerLink="/customer/login" class="cta-button">Login as Customer</a>
+        </li>
+        <li><a href="#services" class="cta-button">About Us</a></li>
+        <li><a href="#contact-us" class="cta-button">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>New way of <br />Getting Home Loans</h1>
+        <h2>Easy &amp; Fast with Easiloan!</h2>
+        <p>
+          With our technology-based platform, You're in charge. Go digital, go
+          quick. We promise best offers from multiple banks.
+        </p>
+      </div>
+      <img src="/icons/website-banner-illustration.svg" alt="" />
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <div class="services-content">
+      <h2>Our Services</h2>
+      <div class="services-cards">
+        <div class="service-card">
+          <h3>Personal Banking</h3>
+          <p>
+            Manage your personal finances with ease using our simple tools.
+          </p>
+        </div>
+        <div class="service-card">
+          <h3>Business Solutions</h3>
+          <p>
+            Grow your business with tailored financial solutions and support.
+          </p>
+        </div>
+        <div class="service-card">
+          <h3>Investment & Wealth</h3>
+          <p>Maximize your wealth with our investment planning services.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="sections-wrapper">
+    <!-- Features Overview Section -->
+    <section id="features" class="features">
+      <div class="features-content">
+        <h2>Key Features</h2>
+        <ul>
+          <li>24/7 Online Banking Access</li>
+          <li>Secure Transactions with Top-tier Encryption</li>
+          <li>Easy-to-use Mobile App for All Your Needs</li>
+          <li>Personalized Financial Advice from Experts</li>
+        </ul>
+      </div>
+    </section>
+  
+    <!-- About Us Section -->
+    <section id="about-us" class="about-us">
+      <div class="about-us-content">
+        <h2>About Us</h2>
+        <p>
+          We are a premium bank offering exclusive services and tailored
+          financial solutions to our clients. Our goal is to provide the best
+          banking experience and ensure financial growth for our customers.
+          With a team of experienced professionals and cutting-edge
+          technology, we are committed to building long-term relationships
+          with our clients.
+        </p>
+      </div>
+    </section>
+  </div>
+  
+  <!-- Contact Us Section -->
+  <section id="contact-us" class="contact-us">
+    <div class="contact-us-box">
+      <div class="contact-us-content">
+        <div class="contact-us-inner">
+          <!-- Left Side - Example Text -->
+          <div class="contact-us-left">
+            <h2>Reach out to Us</h2>
+            <p>
+              If you have any questions or need assistance, feel free to reach
+              out to us. Our team is here to help you!
+            </p>
+          </div>
+  
+          <!-- Right Side - Contact Form and Logo -->
+          <div class="contact-us-right">
+            <!-- Contact Form -->
+            <form action="#" method="POST" class="contact-form">
+              <!-- Full-width Name Input -->
+              <div class="form-group full-width">
+                <label for="name">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+  
+              <!-- Contact Number and Email Side-by-Side -->
+              <div class="form-group two-columns">
+                <div class="input-column">
+                  <label for="contact-number">Your Contact Number</label>
+                  <input
+                    type="text"
+                    id="contact-number"
+                    name="contact-number"
+                    placeholder="Enter your contact number"
+                    required
+                  />
+                </div>
+                <div class="input-column">
+                  <label for="email">Your Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+              </div>
+  
+              <!-- Query Textarea -->
+              <div class="form-group full-width">
+                <label for="message">Your Query</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  placeholder="Enter your query"
+                  required
+                ></textarea>
+              </div>
+  
+              <!-- Submit Button -->
+              <div class="form-group full-width">
+                <button type="submit" class="cta-button">Send Message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section with Bank Info -->
+  <section id="footer-info" class="footer-info">
+    <div class="footer-info-content">
+      <div class="footer-info-left">
+        <div class="footer-logo">
+          <img src="" alt="Bank Logo" class="bank-logo" />
+        </div>
+        <div class="footer-details">
+          <p><strong>About Premium Bank</strong></p>
+          <p>
+            Your trusted financial partner. We strive to provide exceptional
+            customer service with the latest technology <br /> to make your financial
+            journey seamless.
+          </p>
+          <p>
+            <strong>Address:</strong> 123 Premium St, Financial City, Bankland
+          </p>
+        </div>
+      </div>
+      <div class="footer-info-right">
+        <div class="footer-contact">
+          <p><strong>Customer Care:</strong> +1 800 123 4567</p>
+          <p><strong>Email:</strong></p>
+        </div>
+        <div class="footer-social">
+          <p>Follow us on social media:</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com" target="_blank">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                alt="Instagram"
+                width="30"
+                height="30"
+              />
+            </a>
+            <a href="https://www.linkedin.com" target="_blank">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/7f/LinkedIn_Logo_2023.svg"
+                alt="LinkedIn"
+                width="30"
+                height="30"
+              />
+            </a>
+            <a href="https://www.facebook.com" target="_blank">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                alt="Facebook"
+                width="30"
+                height="30"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <p>&copy; 2025 Premium Bank. All Rights Reserved.</p>
+    <p>
+      *Terms and conditions apply. Credit at sole discretion of lender, which is
+      subject to credit appraisal, eligibility check, rates, charges and terms.
+    </p>
+  </footer>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+  <!-- Background shape -->
+  <rect x="10" y="10" width="40" height="40" rx="8" fill="#2563eb"/>
+  
+  <!-- Upward arrow representing 'lift' -->
+  <path d="M30 40 L20 30 L30 20 L40 30 L30 40" fill="white"/>
+  
+  <!-- House roof shape -->
+  <path d="M25 35 L35 35 L30 28 Z" fill="white"/>
+  
+  <!-- Text -->
+  <text x="60" y="38" font-family="Arial" font-weight="bold" font-size="24" fill="#1e40af">
+    Loan<tspan fill="#2563eb">Lift</tspan>
+  </text>
+</svg>

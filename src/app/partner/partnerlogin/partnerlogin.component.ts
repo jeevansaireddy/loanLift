@@ -2,21 +2,27 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClient , HttpClientModule} from '@angular/common/http';
+
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-partner-login',
   templateUrl: './partnerlogin.component.html',
   styleUrls: ['./partnerlogin.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule]
 })
 export class PartnerloginComponent {
+  readonly BASE_URL = 'https://1b18-2405-201-c009-687f-adaa-a207-8ee6-4dbd.ngrok-free.app';
   signupForm: FormGroup;
   signinForm: FormGroup;
-  isSignup = true;
+  isSignup = false;
   submitted = false; // Add this to track form submission attempts
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder , private http: HttpClient, private router: Router) {
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -60,8 +66,27 @@ export class PartnerloginComponent {
 
   onSignin() {
     this.submitted = true;
-    if (!this.isSigninFormInvalid()) {
-      console.log('Signin form data:', this.signinForm.value);
+  
+    if (this.signinForm.valid) {
+      const  email = this.signinForm.value.email;
+      const password = this.signinForm.value.password;
+  
+      this.http.post(this.BASE_URL+'/users/login/', { email, password }).subscribe(
+        (response: any) => {
+          // Handle successful login
+          console.log('Login successful:', response);
+  
+          // Store the token (if received in the response)
+          localStorage.setItem('token', response.access_token);
+  
+          // Redirect to the desired page
+          this.router.navigate(['/partner/dashboard']);
+        },
+        (error: any) => {
+          // Handle login error
+          console.error('Login error:', error);
+        }
+      );
     }
   }
 
