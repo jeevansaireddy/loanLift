@@ -1,0 +1,88 @@
+<div class="auth-container">
+    <div class="form-toggle">
+      <button (click)="toggleForm()">
+        {{ isSignup ? 'Switch to Sign In' : 'Switch to Sign Up' }}
+      </button>
+    </div>
+  
+    <!-- Signup Form -->
+    <form *ngIf="isSignup" [formGroup]="signupForm" (ngSubmit)="onSignup()" class="form">
+      <h2>Partner Sign Up</h2>
+
+
+  <!-- First Name -->
+  <div class="form-group">
+    <label for="first-name">First Name</label>
+    <input id="first-name" type="text" formControlName="firstName" placeholder="Enter your first name">
+    <div *ngIf="(signupForm.get('firstName')?.touched || submitted) && signupForm.get('firstName')?.invalid" class="error">
+      <span *ngIf="signupForm.get('firstName')?.errors?.['required']">First Name is required</span>
+    </div>
+  </div>
+
+  <!-- Last Name -->
+  <div class="form-group">
+    <label for="last-name">Last Name</label>
+    <input id="last-name" type="text" formControlName="lastName" placeholder="Enter your last name">
+    <div *ngIf="(signupForm.get('lastName')?.touched || submitted) && signupForm.get('lastName')?.invalid" class="error">
+      <span *ngIf="signupForm.get('lastName')?.errors?.['required']">Last Name is required</span>
+    </div>
+  </div>
+  
+      <div class="form-group">
+        <label for="signup-email">Email</label>
+        <input id="signup-email" type="email" formControlName="email" placeholder="Enter your email">
+        <div *ngIf="(signupForm.get('email')?.touched || submitted) && signupForm.get('email')?.invalid" class="error">
+          <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="signup-password">Password</label>
+        <input id="signup-password" type="password" formControlName="password" placeholder="Enter your password">
+        <div *ngIf="(signupForm.get('password')?.touched || submitted) && signupForm.get('password')?.invalid" class="error">
+          <span *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input id="confirm-password" type="password" formControlName="confirmPassword" placeholder="Confirm your password">
+        <div *ngIf="(signupForm.get('confirmPassword')?.touched || submitted) && signupForm.hasError('mismatch')" class="error">
+          Passwords do not match
+        </div>
+      </div>
+  
+      <button [disabled]="isSignupFormInvalid()" [class.disabled]="isSignupFormInvalid()" [class.active]="!isSignupFormInvalid()">
+        Sign Up
+      </button>
+    </form>
+  
+    <!-- Signin Form -->
+    <form *ngIf="!isSignup" [formGroup]="signinForm" (ngSubmit)="onSignin()" class="form">
+      <h2>Partner Sign In</h2>
+  
+      <div class="form-group">
+        <label for="signin-email">Email</label>
+        <input id="signin-email" type="email" formControlName="email" placeholder="Enter your email">
+        <div *ngIf="(signinForm.get('email')?.touched || submitted) && signinForm.get('email')?.invalid" class="error">
+          <span *ngIf="signinForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="signinForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="signin-password">Password</label>
+        <input id="signin-password" type="password" formControlName="password" placeholder="Enter your password">
+        <div *ngIf="(signinForm.get('password')?.touched || submitted) && signinForm.get('password')?.invalid" class="error">
+          <span *ngIf="signinForm.get('password')?.errors?.['required']">Password is required</span>
+        </div>
+      </div>
+  
+      <button [disabled]="isSigninFormInvalid()" [class.disabled]="isSigninFormInvalid()" [class.active]="!isSigninFormInvalid()">
+        Sign In
+      </button>
+    </form>
+  </div>
+  

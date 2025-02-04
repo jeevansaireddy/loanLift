@@ -1,0 +1,81 @@
+<div class="filter-container grid grid-cols-3 gap-4 mb-4">
+    <!-- Partner Filter -->
+    <select 
+      [(ngModel)]="selectedPartner" 
+      (change)="applyFilters()"
+      class="p-2 border rounded"
+    >
+      <option value="">All Partners</option>
+      <option *ngFor="let partner of uniquePartners" [value]="partner">
+        {{partner}}
+      </option>
+    </select>
+
+    <!-- Project Filter -->
+    <select 
+      [(ngModel)]="selectedProject" 
+      (change)="applyFilters()"
+      class="p-2 border rounded"
+    >
+      <option value="">All Projects</option>
+      <option *ngFor="let project of uniqueProjects" [value]="project">
+        {{project}}
+      </option>
+    </select>
+
+    <!-- Loan Status Filter -->
+    <select 
+      [(ngModel)]="selectedStatus" 
+      (change)="applyFilters()"
+      class="p-2 border rounded"
+    >
+      <option value="">All Statuses</option>
+      <option value="approved">Approved</option>
+      <option value="rejected">Rejected</option>
+      <option value="in_progress">In Progress</option>
+    </select>
+     <!-- Month Filter -->
+     <select 
+     [(ngModel)]="selectedMonth" 
+     (change)="applyFilters()"
+     class="p-2 border rounded"
+   >
+     <option value="">All Months</option>
+     <option *ngFor="let month of months" [value]="month.value">
+       {{month.label}}
+     </option>
+   </select>
+
+   <!-- Year Filter -->
+   <select 
+     [(ngModel)]="selectedYear" 
+     (change)="applyFilters()"
+     class="p-2 border rounded"
+   >
+     <option value="">All Years</option>
+     <option *ngFor="let year of uniqueYears" [value]="year">
+       {{year}}
+     </option>
+   </select>
+
+
+
+
+
+  </div>
+
+  <!-- Disbursement Amount Filters -->
+  <!-- <div class="disbursement-stats grid grid-cols-3 gap-4">
+    <div class="stat-card">
+      <h3>Total Disbursed Amount</h3>
+      <p class="stat-value">₹{{ totalDisbursedAmount | number:'1.0-0' }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Average Loan Amount</h3>
+      <p class="stat-value">₹{{ averageLoanAmount | number:'1.0-0' }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total Applications</h3>
+      <p class="stat-value">{{ filteredApplications.length }}</p>
+    </div>
+  </div> -->

@@ -1,1 +1,16 @@
+<div class="container">
+    <div class="top-nav">
+      <div class="logo">LoanLift</div>
+      <div class="nav-links">
+        <span routerLink="/partner/dashboard" >Dashboard</span>
+        <span routerLink="/partner/myaccount">My Account</span>
+      </div>
+      <div class="user-actions">
+        <button class="logout-btn" (click)="onLogout()">
+          Logout
+        </button>
+      </div>
+    </div>
+  
 <router-outlet></router-outlet>
+</div>

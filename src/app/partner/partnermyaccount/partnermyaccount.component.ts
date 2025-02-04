@@ -2,21 +2,22 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { AccountserviceService } from '../../services/accountservice.service';
 
 @Component({
   selector: 'app-partnermyaccount',
   standalone: true,
-  imports: [[CommonModule, ReactiveFormsModule, RouterLink]],
+  imports: [[CommonModule, ReactiveFormsModule]],
   templateUrl: './partnermyaccount.component.html',
   styleUrl: './partnermyaccount.component.scss'
 })
 export class PartnermyaccountComponent {
   activeTab = 'company';
   companyForm!: FormGroup;
-  isEditMode = true;
+  isEditMode = false;
   savedData: any = null;
+  id: any;
 
 
   validationMessages = {
@@ -40,8 +41,16 @@ export class PartnermyaccountComponent {
     }
   };
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private myaccountservice: AccountserviceService) {
     this.initializeForm();
+
+    const currentUser = localStorage.getItem('currentUser');
+
+    // If the 'currentUser' is not found or the role is not 'admin', redirect to the login page
+    if (!currentUser || JSON.parse(currentUser).role !== 'partner') {
+      this.router.navigate(['/admin/login']);
+    }
+    
   }
 
   disableForm() {
@@ -90,40 +99,68 @@ export class PartnermyaccountComponent {
   }
 
   ngOnInit() {
-    // Load saved data if available
-    const savedData = localStorage.getItem('companyDetails');
-    if (savedData) {
-      this.savedData = JSON.parse(savedData);
-      this.loadSavedData();
+    // Load saved data if availabl
+      this.myaccountservice.getMyAccountDetails().subscribe((response)=>{
+        console.log(response);
+        this.companyForm.patchValue({
+          id: response.data.id,
+          corporateName: response.data.corporate_name,
+          companyPan: response.data.company_name,
+          gstin: response.data.gstin,
+          companyAddress: response.data.company_address,
+          pincode: response.data.pincode,
+          state: response.data.state,
+          city: response.data.city
+        });
+        this.id = response.data.id;
+      })
       this.isEditMode = false;
       this.disableForm();  // Disable form if there's saved data
-    }
+    
   }
 
-  loadSavedData() {
-    if (this.savedData) {
-      Object.keys(this.savedData).forEach(key => {
-        const control = this.companyForm.get(key);
-        if (control) {
-          control.patchValue(this.savedData[key]);
-        }
-      });
-    }
-  }
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
   }
 
 
-  onSubmit() {
-    if (this.companyForm.valid) {
-      this.savedData = this.companyForm.getRawValue();
-      localStorage.setItem('companyDetails', JSON.stringify(this.savedData));
-      this.isEditMode = false;
-      this.disableForm();  // Disable all fields after saving
-    }
-  }
+   checkFormHasData(form: FormGroup): boolean {
+        // Option 1: Check if form is valid and has values
+        if (form.valid) {
+          return Object.values(form.controls).some(control => 
+            control.value !== null && 
+            control.value !== '' && 
+            control.value !== undefined
+          );
+        }
+        return false;
+  
+      }
+    
+      onSubmit() {
+  
+        if(!this.checkFormHasData(this.companyForm)){
+        if (this.companyForm.valid) {
+          this.myaccountservice.postMyAccountDetails(this.companyForm).subscribe(response => {
+            if (response) {
+              alert('Lead added successfully');
+            }
+          });
+        }} else {
+          if (this.companyForm.valid) {
+            this.myaccountservice.updateMyAccountDetails(this.companyForm, this.id).subscribe(response => {
+              if(response) {
+                alert('Lead updated successfully');
+              }
+            })
+          }
+    
+          this.isEditMode = false;
+          this.disableForm();  // Disable all fields after saving
+        }
+      }
+    
 
   onEdit() {
     this.isEditMode = true;
@@ -151,8 +188,8 @@ export class PartnermyaccountComponent {
 
   
 onDiscard() {
-  if (this.savedData) {
-    this.loadSavedData();
+  if (this.checkFormHasData(this.companyForm)) {
+    console.log(this.checkFormHasData(this.companyForm));
     this.isEditMode = false;
     this.disableForm();  // Disable form after discarding changes
   } else {

@@ -1,0 +1,156 @@
+<!-- Content Area -->
+<div class="content">
+
+  <div class="header-content">
+    <div class="flex items-center justify-between">
+      <h1>Dashboard</h1>
+      <app-loan-application-filter 
+        [loanApplications]="loanapplications"
+        (filteredApplicationsChange)="onFilteredApplications($event)"
+        class="mr-4"
+      ></app-loan-application-filter>
+    </div>
+  </div>
+
+ 
+
+
+  <div class="stats-container">
+    <div class="stat-card">
+      <h3>Total leads</h3>
+      <p class="stat-value">{{totalLeads}}</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Bank Rejected</h3>
+      <p class="stat-value">{{bankRejected}}</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Disbursement</h3>
+      <p class="stat-value">{{bankApproved}}</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Disbursment Amount</h3>
+      <p class="stat-value">{{disbursedAmount}}</p>
+    </div>
+  </div>
+</div>
+
+<!-- Customer Leads Section -->
+<div class="content">
+  <div class="search-bar">
+    <input type="text" placeholder="Enter Name/ Project Name/ Partner Name" [(ngModel)]="searchTerm" (input)="filterApplications()"/>
+    <button>🔍</button>
+    <button class="add-lead">
+      <a routerLink="/partner/addlead">+ Add Lead</a>
+    </button>
+  </div>
+
+  <!-- Table Section -->
+  <table *ngIf="filteredApplications.length > 0" class="min-w-full">
+    <thead>
+      <tr>
+        <th class="border p-2">Application ID</th>
+        <th class="border p-2">Partner</th>
+        <th class="border p-2">Project</th>
+        <th class="border p-2">Applicant Name</th>
+        <th class="border p-2">Disbursement</th>
+        <th class="border p-2">Loan Amount</th>
+        <th class="border p-2">Loan Status</th>
+        <th class="border p-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of filteredApplications" class="hover:bg-gray-50">
+        <td class="border p-2">{{ row.application_id }}</td>
+        <td class="border p-2">{{ row.partner }}</td>
+        <td class="border p-2">{{ row.project_name }}</td>
+        <td class="border p-2">{{ row.applicant_name }}</td>
+        <td class="border p-2">
+          <input 
+            type="text" 
+            [(ngModel)]="row.disbursed_amount"
+            [disabled]="!row.isEditing"
+            class="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+        </td>
+        <td class="border p-2">{{ row.loan_amount }}</td>
+        <td class="border p-2">
+          <select 
+            [(ngModel)]="row.loan_status"
+            [disabled]="!row.isEditing"
+            class="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="in_progress">In Progress</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </td>
+       
+        <!-- <td class="border p-2">
+          Documents section remains the same
+          <div class="flex flex-col gap-2">
+            <button 
+              (click)="downloadAllDocuments(row.documents)"
+              class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              <i class="fas fa-download mr-1"></i> Download All
+            </button>
+            ... rest of the documents section ... -->
+          <!-- </div>
+        </td> -->
+        <td class="border p-2">
+          <div class="flex flex-col gap-2">
+            <!-- View Full Form Button -->
+            <button 
+              (click)="viewFullForm(row.application_id)"
+              class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              <i class="fas fa-eye mr-1"></i> View all details
+            </button>
+
+            <!-- Edit/Save Button -->
+            <button 
+              *ngIf="!row.isEditing"
+              (click)="toggleEdit(row)"
+              class="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+            >
+              <i class="fas fa-edit mr-1"></i> Edit
+            </button>
+            <button 
+              *ngIf="row.isEditing"
+              (click)="saveChanges(row.application_id, row.loan_status, row.disbursed_amount, row)"
+              class="px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              <i class="fas fa-save mr-1"></i> Save
+            </button>
+
+            <!-- Cancel Edit Button -->
+            <button 
+              *ngIf="row.isEditing"
+              (click)="cancelEdit(row)"
+              class="px-2 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
+            >
+              <i class="fas fa-times mr-1"></i> Cancel
+            </button>
+
+            <!-- Delete Button -->
+            <button 
+              (click)="deleteRow(row.application_id)"
+              class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+            >
+              <i class="fas fa-trash mr-1"></i> Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- No data message -->
+  <div *ngIf="loanapplications.length === 0" class="p-4 text-gray-500">
+    No loan applications available.
+  </div>
+</div>

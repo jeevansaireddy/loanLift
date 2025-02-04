@@ -1,0 +1,19 @@
+// In your component's SCSS file:
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinning-icon {
+  animation: spin 2s linear infinite;
+}
+
+// If you want a bouncing animation instead, you can use this:
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.bouncing-icon {
+  animation: bounce 2s ease-in-out infinite;
+}

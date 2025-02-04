@@ -1,32 +1,4 @@
-.container {
-    width: 100%;
-    min-height: 100vh;
-    background-color: #f5f5f5;
-    font-family: 'Avenir', Arial, sans-serif;
-  }
-  
-  // Navigation styles
-  .top-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border-bottom: 1px solid #ddd;
-    box-sizing: border-box;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .nav-links span {
-    margin: 0 15px;
-    cursor: pointer;
-  }
-  
+
   .user-icon button {
     background: none;
     border: none;
@@ -249,31 +221,4 @@
     min-height: 17px; // Prevents layout shift when error appears
   }
 
-  .user-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
   
-  .logout-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #f5f5f5;
-    color: #666;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-  
-    &:hover {
-      background-color: #dc3545;
-      color: white;
-    }
-  
-    .logout-icon {
-      font-size: 16px;
-    }
-  }

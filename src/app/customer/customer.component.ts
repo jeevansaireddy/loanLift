@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer',
@@ -9,5 +9,6 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './customer.component.scss'
 })
 export class CustomerComponent {
+  constructor(private router: Router) { }
 
 }

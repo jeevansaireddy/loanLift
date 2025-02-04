@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink} from '@angular/router';
+import { LeadserviceService } from '../../services/leadservice.service';
 
 
 @Component({
@@ -39,11 +40,11 @@ export class AddleadsComponent {
     { section: 'Address', id: 'permanent-pincode', label: 'Permanent Pincode', type: 'text', inputType: 'text', controlName: 'permanentPincode', placeholder: 'Enter locality pincode', errorMessage: 'Pincode is required.' },
     { section: 'Address', id: 'permanent-state', label: 'Permanent State', type: 'text', inputType: 'text', controlName: 'permanentState', placeholder: 'State will be based on your pincode', errorMessage: '' },
     { section: 'Address', id: 'permanent-city', label: 'Permanent City', type: 'text', inputType: 'text', controlName: 'permanentCity', placeholder: 'City will be based on your pincode', errorMessage: '' },
+    { section: 'Address', id: 'current-address-same', label: 'Current Address Same as Permanent Address', type: 'checkbox', controlName: 'isCurrentSameAsPermanent', errorMessage: '' },
     { section: 'Address', id: 'current-address', label: 'Current Address', type: 'text', inputType: 'text', controlName: 'currentAddress', placeholder: 'Mandatory', errorMessage: 'Current address is required.' },
     { section: 'Address', id: 'current-pincode', label: 'Current Pincode', type: 'text', inputType: 'text', controlName: 'currentPincode', placeholder: 'Enter locality pincode', errorMessage: 'Pincode is required.' },
     { section: 'Address', id: 'current-state', label: 'Current State', type: 'text', inputType: 'text', controlName: 'currentState', placeholder: 'State will be based on your pincode', errorMessage: '' },
     { section: 'Address', id: 'current-city', label: 'Current City', type: 'text', inputType: 'text', controlName: 'currentCity', placeholder: 'City will be based on your pincode', errorMessage: '' },
-    { section: 'Address', id: 'current-address-same', label: 'Current Address Same as Permanent Address', type: 'checkbox', controlName: 'isCurrentSameAsPermanent', errorMessage: '' },
     
     // Professional Information Section
     { section: 'Professional Information', id: 'employment-type', label: 'Type of Employment', type: 'select', controlName: 'employmentType', placeholder: 'Please select one option', options: ['Self-Employed', 'Salaried'], errorMessage: '' },
@@ -59,101 +60,7 @@ export class AddleadsComponent {
     { section: 'Loan Requirements', id: 'loan-product', label: 'Product', type: 'select', controlName: 'loanProduct', placeholder: 'Please select one option', options: ['Home Loan', 'Personal Loan'], errorMessage: '' },
     { section: 'Loan Requirements', id: 'loan-amount', label: 'Amount Required', type: 'text', inputType: 'number', controlName: 'loanAmount', placeholder: 'Enter amount required', errorMessage: 'Loan amount is required.' },
     { section: 'Loan Requirements', id: 'loan-tenure', label: 'Loan Tenure', type: 'text', inputType: 'number', controlName: 'loanTenure', placeholder: 'Enter loan tenure in years', errorMessage: '' },
-    
-    // Property Details Section
-      // {
-      //   section: 'Property Details',
-      //   id: 'property-identified',
-      //   label: 'Is Property Identified?',
-      //   type: 'select',
-      //   controlName: 'propertyIdentified',
-      //   placeholder: 'Please select one option',
-      //   options: ['Yes', 'No'],
-      //   errorMessage: ''
-      // },
-      // {
-      //   section: 'Property Details',
-      //   id: 'project-name',
-      //   label: 'Project Name',
-      //   type: 'text',
-      //   controlName: 'projectName',
-      //   placeholder: 'Enter project name',
-      //   errorMessage: 'Project Name is required'
-      // },
-      // {
-      //   section: 'Property Details',
-      //   id: 'developer-name',
-      //   label: 'Developer Name',
-      //   type: 'text',
-      //   controlName: 'developerName',
-      //   placeholder: 'Enter developer\'s name',
-      //   errorMessage: 'Developer Name is required'
-      // },
-      // {
-      //   section: 'Property Details',
-      //   id: 'booking-date',
-      //   label: 'Booking Date',
-      //   type: 'date',
-      //   controlName: 'bookingDate',
-      //   placeholder: 'DD / MM / YYYY',
-      //   errorMessage: 'Booking Date is required'
-      // },
-      // {
-      //   section: 'Property Details',
-      //   id: 'typology',
-      //   label: 'Typology',
-      //   type: 'select',
-      //   controlName: 'typology',
-      //   placeholder: 'Please select one option',
-      //   options: ['Apartment', 'Villa', 'Plot'],
-      //   errorMessage: ''
-      // },
-      // {
-      //   section: 'Property Details',
-      //   id: 'stage-of-construction',
-      //   label: 'Stage of Construction',
-      //   type: 'select',
-      //   controlName: 'stageOfConstruction',
-      //   placeholder: 'Please select one option',
-      //   options: ['Under Construction', 'Ready to Move'],
-      //   errorMessage: ''
-      // },
-      // {
-      //   section: 'Property Details',
-      //   id: 'property-value',
-      //   label: 'Property Value',
-      //   type: 'text',
-      //   controlName: 'propertyValue',
-      //   placeholder: 'Enter property value',
-      //   errorMessage: 'Property Value must be greater than 0'
-      // },
-      // {
-      //   section: 'Property Details',
-      //   id: 'pincode',
-      //   label: 'Pincode',
-      //   type: 'text',
-      //   controlName: 'pincode',
-      //   placeholder: 'Enter locality pincode',
-      //   errorMessage: 'Pincode is required'
-      // },
-      // {
-      //   section: 'Property Details',
-      //   id: 'state',
-      //   label: 'State',
-      //   type: 'text',
-      //   controlName: 'state',
-      //   placeholder: 'State will be based on your pincode',
-      //   errorMessage: ''
-      // },
-      // {
-      //   section: 'Property Details',
-      //   id: 'city',
-      //   label: 'City',
-      //   type: 'text',
-      //   controlName: 'city',
-      //   placeholder: 'City will be based on your pincode',
-      //   errorMessage: ''
-      // },
+  
     // Documents Section
 { section: 'Documents', id: 'pan-card', label: 'PAN Card', type: 'file', controlName: 'panCardDoc', errorMessage: 'PAN Card document is required.' },
 { section: 'Documents', id: 'aadhaar-card', label: 'Aadhaar Card', type: 'file', controlName: 'aadhaarCardDoc', errorMessage: 'Aadhaar Card document is required.' },
@@ -161,11 +68,11 @@ export class AddleadsComponent {
 { section: 'Documents', id: 'bank-statements', label: 'Bank Statements', type: 'file', controlName: 'bankStatements', errorMessage: 'Bank statements are required.' },
 { section: 'Documents', id: 'form-16', label: 'Form 16', type: 'file', controlName: 'form16', errorMessage: 'Form 16 is required.' },
     // Other Section
-    { section: 'Other', id: 'closing-manager', label: 'Closing Manager', type: 'text', inputType: 'text', controlName: 'closingManager', placeholder: 'Enter name of closing manager', errorMessage: 'Closing manager name is required.' }
+    { section: 'Other', id: 'closing-manager', label: 'Project Name', type: 'text', inputType: 'text', controlName: 'closingManager', placeholder: 'Enter name of Project', errorMessage: 'Project name is required.' }
   ];
   
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private leadService: LeadserviceService) {
     this.leadForm = this.fb.group({
       fullName: ['', Validators.required],
       gender: ['', Validators.required],
@@ -180,11 +87,11 @@ export class AddleadsComponent {
       permanentPincode: ['', Validators.required],
       permanentState: [''],
       permanentCity: [''],
+      isCurrentSameAsPermanent: [false],
       currentAddress: ['', Validators.required],
       currentPincode: ['', Validators.required],
       currentState: [''],
       currentCity: [''],
-      isCurrentSameAsPermanent: [false],
       employmentType: ['', Validators.required],
       companyName: ['', Validators.required],
       monthlyIncome: ['', Validators.required],
@@ -196,16 +103,6 @@ export class AddleadsComponent {
       loanProduct: ['', Validators.required],
       loanAmount: ['', Validators.required],
       loanTenure: [''],
-      // propertyIdentified: ['No', Validators.required],
-      // projectName: [''],
-      // developerName: [''],
-      // bookingDate: [''],
-      // typology: [''],
-      // stageOfConstruction: [''],
-      // propertyValue: [''],
-      // pincode: [''],
-      // state: [''],
-      // city: [''],
       panCardDoc: [[], Validators.required],
     aadhaarCardDoc: [[], Validators.required],
     salarySlips: [[], Validators.required],
@@ -214,6 +111,42 @@ export class AddleadsComponent {
       closingManager: ['', Validators.required]
       
     });
+
+    this.leadForm.get('isCurrentSameAsPermanent')?.valueChanges.subscribe(checked => {
+      if (checked) {
+        this.leadForm.patchValue({
+          currentAddress: this.leadForm.get('permanentAddress')?.value,
+          currentPincode: this.leadForm.get('permanentPincode')?.value,
+          currentState: this.leadForm.get('permanentState')?.value,
+          currentCity: this.leadForm.get('permanentCity')?.value,
+        });
+
+        // Disable fields so they cannot be edited manually
+        this.leadForm.get('currentAddress')?.disable();
+        this.leadForm.get('currentPincode')?.disable();
+        this.leadForm.get('currentState')?.disable();
+        this.leadForm.get('currentCity')?.disable();
+      } else {
+        // Enable fields for manual input
+        this.leadForm.get('currentAddress')?.enable();
+        this.leadForm.get('currentPincode')?.enable();
+        this.leadForm.get('currentState')?.enable();
+        this.leadForm.get('currentCity')?.enable();
+
+        // Clear values to allow new input
+        this.leadForm.patchValue({
+          currentAddress: '',
+          currentPincode: '',
+          currentState: '',
+          currentCity: '',
+        });
+      }
+    });
+
+
+
+
+
   
   }  
 
@@ -315,15 +248,29 @@ export class AddleadsComponent {
         if (this.uploadedFiles[key]) {
           // Append files with index
           this.uploadedFiles[key].forEach((file, index) => {
-            formData.append(`${key}_${index}`, file);
+            formData.append(`${key}`, file);
           });
         } else {
           // Append regular form values
           formData.append(key, this.leadForm.value[key]);
         }
       });
+      formData.delete('isCurrentSameAsPermanent');
 
-      console.log('Form Submitted with files');
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
+     
+      this.leadService.createLead(formData).subscribe(message=>{
+        console.log(message);
+        if( message['message'] === "Loan application successfully added!"){
+          alert("Loan application created successfully");
+          this.router.navigate(['/partner/dashboard']);
+        }
+      }
+      );
+
+
       // Send formData to your API
     }
   }
