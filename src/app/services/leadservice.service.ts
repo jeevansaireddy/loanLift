@@ -7,7 +7,10 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LeadserviceService {
-  private apiUrl = 'http://127.0.0.1:8000';
+  // private apiUrl = 'http://127.0.0.1:8000';
+
+  private apiUrl = 'https://www.loanlift.co.in';
+
 
   constructor(private http: HttpClient) { }
 

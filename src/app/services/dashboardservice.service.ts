@@ -7,7 +7,9 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DashboardserviceService {
-  private BASE_URL = 'http://127.0.0.1:8000';
+  // private BASE_URL = 'http://127.0.0.1:8000';
+
+  private BASE_URL = 'https://www.loanlift.co.in';
 
   constructor(private http: HttpClient) {}
 

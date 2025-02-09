@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -6,7 +6,8 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet, RouterLink],
   templateUrl: './partner.component.html',
-  styleUrl: './partner.component.scss'
+  styleUrl: './partner.component.scss',
+  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class PartnerComponent {
 

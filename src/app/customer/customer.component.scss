@@ -1,19 +1,71 @@
-// In your component's SCSS file:
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: 'Avenir', Arial, sans-serif;
 }
 
-.spinning-icon {
-  animation: spin 2s linear infinite;
+// Navigation styles
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
 }
 
-// If you want a bouncing animation instead, you can use this:
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+.logo {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.bouncing-icon {
-  animation: bounce 2s ease-in-out infinite;
+.nav-links span {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: #ffffff;
+  border: 1px solid transparent;
+}
+
+.nav-links span:hover {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+  box-shadow: 0px 4px 6px rgba(0, 123, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  color: #666;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  .logout-icon {
+    font-size: 16px;
+  }
 }

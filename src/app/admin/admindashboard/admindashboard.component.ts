@@ -16,6 +16,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 export interface LoanApplication {
   application_id: number;
   applicant_name: string;
+  role: string;
   loan_amount: number;
   loan_status: 'approved' | 'rejected' | 'in_progress';
   disbursed_amount: number;
@@ -278,6 +279,7 @@ export class AdmindashboardComponent implements OnInit {
 
       return {
         application_id: Number(apiResponse.application_id) || 0,
+        role: String(apiResponse.created_by.role || ''),
         applicant_name: String(apiResponse.applicant_name || ''),
         loan_amount: Number(apiResponse.loan_amount) || 0,
         loan_status: apiResponse.loan_status,

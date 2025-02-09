@@ -14,15 +14,21 @@ import { AdminmyaccountComponent } from './admin/adminmyaccount/adminmyaccount.c
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
 import { ViewleadComponent } from './admin/viewlead/viewlead.component';
 import { AdminaddleadComponent } from './admin/adminaddlead/adminaddlead.component';
+import { CustomerloginComponent } from './customerlogin/customerlogin.component';
+import { CustomeraddleadsComponent } from './customer/customeraddleads/customeraddleads.component';
+import { CustomereditleadsComponent } from './customer/customereditleads/customereditleads.component';
+import { CustomerdashboardComponent } from './customer/customerdashboard/customerdashboard.component';
+import { CustomermyaccountComponent } from './customer/customermyaccount/customermyaccount.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route
     { path: 'home', component: HomepageComponent },
     { path: 'partner/login', component: PartnerloginComponent },
     { path: 'admin/login', component: AdminloginComponent },
+    { path: 'customer/login', component: CustomerloginComponent },
     { path: 'partner', component: PartnerComponent,
         children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: '', redirectTo: 'partner/login', pathMatch: 'full' },
             { path: 'addlead', component: AddleadsComponent },
             { path: 'editlead/:id', component: EditleadsComponent },
             { path: 'dashboard', component: PartnerdashboardComponent },
@@ -30,11 +36,20 @@ export const routes: Routes = [
             { path: '**', redirectTo: 'login' }
         ]
      },
-    { path: 'customer/login', component: CustomerComponent, 
+    { path: 'customer', component: CustomerComponent,
+        children: [
+            { path: '', redirectTo: 'customer/login', pathMatch: 'full' },
+            { path: 'addlead', component: CustomeraddleadsComponent },
+            { path: 'editlead/:id', component: CustomereditleadsComponent },
+            { path: 'dashboard', component: CustomerdashboardComponent },
+            { path: 'myaccount', component: CustomermyaccountComponent },
+            { path: '**', redirectTo: 'login' }
+        ]
+
     },
     { path: 'admin' , component: AdminComponent,
         children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
             { path: 'viewlead/:id', component: ViewleadComponent },
             {
                 path: 'viewlead/:id/edit',

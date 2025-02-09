@@ -1,29 +1,5 @@
 <div class="filter-container grid grid-cols-3 gap-4 mb-4">
-    <!-- Role Filter -->
-    <select 
-      [(ngModel)]="selectedRole" 
-      (change)="applyFilters()"
-      class="p-2 border rounded"
-    >
-      <option value="">Roles</option>
-      <option *ngFor="let partner of uniqueRoles" [value]="partner">
-        {{partner}}
-      </option>
-    </select>
-
-
-    <!-- Partner Filter -->
-    <select 
-      [(ngModel)]="selectedPartner" 
-      (change)="applyFilters()"
-      class="p-2 border rounded"
-    >
-      <option value="">All Names</option>
-      <option *ngFor="let partner of uniquePartners" [value]="partner">
-        {{partner}}
-      </option>
-    </select>
-
+  
     <!-- Project Filter -->
     <select 
       [(ngModel)]="selectedProject" 

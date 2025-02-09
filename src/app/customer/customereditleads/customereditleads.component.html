@@ -1,0 +1,101 @@
+<div class="content">
+    <div class="header">
+      <div class="header-content">
+        <h1>Edit Lead</h1>
+        <button class="cancel-button" type="button" (click)="onCancel()"> Cancel</button>
+      </div>
+    </div>
+  
+    <form [formGroup]="leadForm" (ngSubmit)="onSubmit()" class="form-section">
+      <ng-container *ngFor="let section of getUniqueSections()">
+        <h2>{{ section }}</h2>
+        <div class="form-grid">
+          <ng-container *ngFor="let field of getFieldsBySection(section)">
+            <div class="form-group">
+              <label [for]="field.id">{{ field.label }}</label>
+              
+              <!-- Regular form fields (non-file inputs) -->
+              <ng-container *ngIf="field.type !== 'file'">
+                <ng-container [ngSwitch]="field.type">
+                  <input *ngSwitchCase="'text'" [type]="field.inputType || 'text'" [id]="field.id" [formControlName]="field.controlName" [placeholder]="field.placeholder" />
+                  <input *ngSwitchCase="'email'" type="email" [id]="field.id" [formControlName]="field.controlName" [placeholder]="field.placeholder" />
+                  <input *ngSwitchCase="'date'" type="date" [id]="field.id" [formControlName]="field.controlName" [placeholder]="field.placeholder" />
+                  <select *ngSwitchCase="'select'" [id]="field.id" [formControlName]="field.controlName">
+                    <option value="">{{ field.placeholder }}</option>
+                    <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+                  </select>
+                  <input *ngSwitchCase="'checkbox'" type="checkbox" [id]="field.id" [formControlName]="field.controlName" />
+                </ng-container>
+  
+                <!-- Show error messages for non-file fields -->
+                <div *ngIf="field.type !== 'file' && (leadForm.get(field.controlName)?.touched || leadForm.get(field.controlName)?.dirty) && leadForm.get(field.controlName)?.invalid" class="error">
+                  <div *ngIf="leadForm.get(field.controlName)?.errors?.['required']">{{ field.label }} is required.</div>
+                  <div *ngIf="leadForm.get(field.controlName)?.errors?.['email']">Please enter a valid email address.</div>
+                  <div *ngIf="leadForm.get(field.controlName)?.errors?.['pattern']">{{ field.errorMessage }}</div>
+                </div>
+              </ng-container>
+              
+              <!-- File upload fields -->
+              <ng-container *ngIf="field.type === 'file'">
+                <div *ngIf="getFiles(field.controlName)?.length">
+                  <!-- Display existing files -->
+                  <div *ngFor="let file of getFiles(field.controlName); let i = index" class="file-info">
+                    <i class="file-icon">📎</i>
+                    <span class="file-name">{{ file.name }}</span>
+                    <button type="button" class="remove-file" (click)="removeFile(field.controlName, $event, i)">
+                      ✕
+                    </button>
+                    <!-- Optional: Link to download the file -->
+                    <a [href]="getDocumentUrl(file.path)" target="_blank" class="file-link">Download</a>
+                  </div>
+                </div>
+                
+                <!-- Show upload button if under max files limit -->
+                <div *ngIf="getFiles(field.controlName).length < getMaxFiles(field.controlName)" class="file-upload-container">
+                  <div class="file-upload-box">
+                    <input
+                      type="file"
+                      [id]="field.id"
+                      (change)="onFileChange($event, field.controlName)"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      class="file-input"
+                    />
+                    <div class="file-upload-content">
+                      <div>
+                        <i class="upload-icon">📄</i>
+                        <span class="upload-text">
+                          Click to upload {{ field.label }}
+                          <ng-container *ngIf="getMaxFiles(field.controlName) > 1">
+                            ({{ getFiles(field.controlName).length }}/{{ getMaxFiles(field.controlName) }})
+                          </ng-container>
+                        </span>
+                        <span class="upload-subtext">Support files: PDF, JPG, PNG</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <!-- Error messages for file fields -->
+                <div *ngIf="(leadForm.get(field.controlName)?.touched || leadForm.get(field.controlName)?.dirty) && leadForm.get(field.controlName)?.invalid" class="error">
+                  <div *ngIf="leadForm.get(field.controlName)?.errors?.['required']">
+                    {{ field.label }} is required.
+                  </div>
+                  <div *ngIf="leadForm.get(field.controlName)?.errors?.['fileSize']">
+                    File size should not exceed 5MB.
+                  </div>
+                  <div *ngIf="leadForm.get(field.controlName)?.errors?.['fileType']">
+                    Only PDF, JPG, and PNG files are allowed.
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+  
+      <div class="actions">
+        <button type="submit" [disabled]="!leadForm.dirty || leadForm.invalid" class="submit-button">Submit</button>
+      </div>
+    </form>
+  </div>
+  

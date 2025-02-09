@@ -1,608 +1,605 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: 'Avenir', Arial, sans-serif;
   }
   
-  /* Smooth scrolling for the entire page */
-  html {
-    scroll-behavior: smooth;
-    font-family: 'Avenir', Arial, sans-serif;
-  }
-  
-  /* Body and General Styles */
-  body {
-    font-family: 'Avenir', Arial, sans-serif;
-    background-color: #e9ecef;
-    color: #080707;
-  }
-  
-  /* Navigation Bar */
-  header {
-    background-color: rgba(255, 249, 239, 0.8);
-    padding: 40px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-  }
-  
-  nav .logo img {
-    max-width: 150px;
-  }
-  
-  header nav ul {
-    list-style-type: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  header nav ul li {
-    display: inline;
-  }
-  
-  header nav ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 5px;
-  }
-  /* Hero Section */
-  .hero {
-    background-color: rgba(255, 249, 239, 0.8);
-    color: rgba(23, 41, 116, 0.904);
-    text-align: left; /* Align text to the left */
-    padding: 100px 20px;
-    display: flex; /* Enable flexbox */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-  }
-  
-  /* Hero Content */
-  .hero-content {
-    display: flex; /* Create a horizontal layout for the container */
-    flex-direction: row; /* Align items side by side */
-    justify-content: flex-start; /* Align content to the left */
-    align-items: center; /* Align items to the center vertically */
-    gap: 0; /* Remove the gap between the text and image */
-    margin-left: 0; /* Remove left margin from the content */
-    margin-right: 0; /* Remove right margin from the content */
-  }
-  
-  /* Text Content */
-  .hero-text {
-    display: flex;
-    flex-direction: column; /* Stack text elements vertically */
-    justify-content: flex-start; /* Align text to the top */
-    gap: 5px; /* Space between text elements */
-    margin-right: 0; /* Remove right margin from the text container */
-    padding-right: 0; /* Remove any padding to bring text closer */
-  }
-  
-  /* Heading 1 */
-  .hero h1 {
-    font-size: 45px;
-    margin: 0; /* Remove any extra margins */
-  }
-  
-  /* Heading 2 */
-  .hero h2 {
-    font-size: 25px;
-    margin: 0;
-    margin-top: 10px;
-    color: #53a2a6;
-  }
-  
-  /* Paragraph */
-  .hero p {
-    font-size: 15px;
-    margin: 0;
-    margin-top: 10px;
-    color: #333;
-    line-height: 1.2; /* Adjust line spacing for closer lines */
-    word-wrap: break-word; /* Break long words and prevent overflow */
-    max-width: 350px; /* Optionally limit the paragraph width for better control */
-    padding-right: 0; /* Ensure text is closer to the image */
-    margin-bottom: 10px; /* Add a little space at the bottom */
-  }
-  
-  /* Image Styling */
-  .hero img {
-    max-height: 480px;
-    width: auto; /* Maintain aspect ratio */
-    margin-left: 20px; /* Add a small margin to the left of the image */
-  }
-  /* Services Section */
-  .services {
-    background-color: #e9ecef;
-    padding: 80px 20px;
-    text-align: center;
-  }
-  
-  .services h2 {
-    font-size: 36px;
-    margin-bottom: 30px;
-  }
-  
-  .services-cards {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  }
-  
-  .service-card {
-    background-color: #e5e2e2cd;
-    padding: 30px;
-    border-radius: 12px;
-    width: 250px;
-  
-    box-shadow: 0 8px 15px rgba(169, 169, 169, 0.2); /* Ash-colored shadow */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .service-card h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .service-card p {
-    font-size: 16px;
-    color: #555; /* Slightly dark color for text */
-  }
-  
-  /* Hover effect */
-  .service-card:hover {
-    transform: translateY(-10px); /* Slightly lift the card */
-    box-shadow: 0 12px 25px rgba(169, 169, 169, 0.3); /* Enhanced shadow on hover */
-    cursor: pointer; /* Change cursor to pointer */
-  }
-  
-  /* Add responsiveness for smaller screens */
-  @media (max-width: 768px) {
-    .services-cards {
-      flex-direction: column; /* Stack cards vertically on smaller screens */
-      gap: 20px;
-    }
-  }
-  
-  /* Wrapper for Features and About Us sections */
-  .sections-wrapper {
-    display: flex;
-    justify-content: center; /* Center the sections horizontally */
-    align-items: flex-start;
-    gap: 40px; /* Increased space between the two sections */
-    padding: 40px 20px;
-    background-color: #e9ecef; /* Optional wrapper background */
-  }
-  
-  /* Features Section */
-  .features {
-    flex: 1; /* Ensure sections grow equally */
-    max-width: 45%; /* Reduce width of each section */
-    min-height: 350px; /* Ensure enough height */
-    background-color: #e5e2e2cd;
-    padding: 40px 30px; /* Adjust padding for better spacing */
-    text-align: center;
-    border: 1px solid #ccc; /* Border for visual separation */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  }
-  
-  /* Features Heading */
-  .features h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  /* Features List */
-  .features ul {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    font-size: 18px;
-    line-height: 1.8; /* Increase line height for readability */
-  }
-  
-  /* About Us Section */
-  .about-us {
-    flex: 1; /* Ensure sections grow equally */
-    max-width: 45%; /* Reduce width of each section */
-    min-height: 350px; /* Ensure enough height */
-    padding: 40px 30px; /* Adjust padding for better spacing */
-    background-color: #e5e2e2cd;
-    text-align: center;
-    border: 1px solid #ccc; /* Border for visual separation */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  }
-  
-  /* About Us Heading */
-  .about-us h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  /* About Us Paragraph */
-  .about-us p {
-    font-size: 18px;
-    font-weight: 300;
-    color: #555;
-    line-height: 1.8; /* Increase line height for readability */
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .sections-wrapper {
-      flex-direction: column; /* Stack sections vertically on smaller screens */
-      gap: 20px; /* Reduce gap between stacked sections */
-    }
-  
-    .features,
-    .about-us {
-      max-width: 100%; /* Full width for smaller screens */
-      margin-bottom: 20px; /* Add space between stacked sections */
-    }
-  }
-  
-  /* Contact Us Section */
-  .contact-us {
-    padding: 80px 20px;
-    background-color: #fff;
-    text-align: center;
-  }
-  
-  .contact-us h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  .contact-us p {
-    font-size: 18px;
-    font-weight: 300;
-    color: #555;
-    margin-bottom: 30px;
-  }
-  
-  /* Contact Form */
-  .contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: left;
-  }
-  
-  .contact-form .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .contact-form label {
-    font-size: 16px;
-  }
-  
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .contact-form button {
-    background-color: #4caf50;
-    color: white;
-    padding: 15px 30px;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .contact-form button:hover {
-    background-color: #45a049;
-  }
-  /* Footer Info Section */
-  .footer-info-content {
-    background-color: #e5e2e2cd;
-    color: #000000;
-    padding: 50px 20px;
-    display: flex;
-    justify-content: space-between; /* Spread the sections across */
-    align-items: flex-start;
-    gap: 0; /* Add some space between the left and right sections */
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  }
-  
-  .footer-info-left {
-    margin-left: 40px;
-  }
-  
-  .footer-info-right {
-    margin-right: 40px;
-  }
-  
-  /* Footer Logo Section */
-  .footer-info .footer-logo {
-    flex: 0 1 150px; /* Fix logo width */
-    text-align: left; /* Align the logo left */
-    margin-bottom: 10px;
-  }
-  
-  /* Footer Details Section */
-  .footer-info .footer-details {
-    flex: 1 1 60%; /* Allow this to take 60% of space */
-    text-align: left;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .footer-info .footer-details p {
-    margin-bottom: 10px;
-  }
-  /* Footer Social Media Section */
-  .footer-info .footer-social {
-    flex: 0 1 35%; /* Take 35% of the space for the social section */
-    text-align: left;
-    margin-bottom: 20px;
-  }
-  
-  /* Footer Contact Section */
-  .footer-info .footer-contact p {
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-  
-  /* Social Media Links */
-  .footer-info .social-links {
-    display: flex;
-    justify-content: left;
-    gap: 20px;
-    margin-top: 10px;
-  }
-  
-  .footer-info .social-links a img {
-    border-radius: 50%;
-    transition: transform 0.3s;
-  }
-  
-  /* Social Icons Hover Effect */
-  .footer-info .social-links a img:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Mobile Adjustments */
-  @media (max-width: 768px) {
-    .footer-info {
-      flex-direction: column; /* Stack sections vertically on smaller screens */
-      text-align: left;
-    }
-  
-    /* Adjust Footer Logo Section */
-    .footer-info .footer-logo {
-      margin-bottom: 20px; /* Add space between logo and other sections */
-      text-align: center; /* Center logo on smaller screens */
-    }
-  
-    /* Make other sections take full width on mobile */
-    .footer-info .footer-details,
-    .footer-info .footer-social {
-      flex: 1 1 100%; /* Full width for each section */
-      margin-bottom: 20px;
-    }
-  
-    /* Adjust social media */
-    .footer-info .social-links {
-      justify-content: flex-start; /* Align social media icons to the left */
-    }
-  }
-  
-  /* Additional Sections and Styles for Contact, Testimonials, etc. */
-  .contact-us {
-    padding: 2px;
-  
-    background-color: #e5e2e2cd;
-    text-align: center;
-    margin: 10px auto; /* Adds margin around the contact section */
-    border-radius: 10px; /* Adds rounded corners */
-    max-width: 80%; /* Optional: to limit the width */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
-  }
-  
-  .contact-us h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  .contact-us p {
-    font-size: 18px;
-    font-weight: 300;
-    color: #555;
-    margin-bottom: 30px;
-  }
-  
-  /* Contact Form */
-  .contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .contact-form .form-group {
-    margin-bottom: 10px;
-  }
-  
-  .contact-form label {
-    font-size: 16px;
-    display: block;
-    margin-bottom: 8px;
-  }
-  
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .contact-form button {
-    background-color: rgba(19, 55, 122, 0.925);
-    color: white;
-    padding: 15px 30px;
-    font-size: 18px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-  }
-  
-  .contact-form button:hover {
-    background-color: rgba(19, 55, 122, 0.925);
-  }
-  .contact-us-content {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 10px;
-  }
-  
-  .contact-us-inner {
-    display: flex;
-    width: 100%;
-    max-width: 1200px;
-    justify-content: space-between;
-  }
-  
-  .contact-us-left {
-    flex: 1;
-    padding-right: 20px;
-    padding-top: 60px;
-    margin-top: 80px;
-  }
-  input,
-  textarea {
-    background-color: #e9ecef;
-  }
-  
-  .contact-us-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 2px solid #e9ecef; /* Border width and color */
-    border-radius: 30px; /* Rounded corners */
-    padding: 40px 0px; /* Increased top padding and adjusted left-right padding */
-    background-color: #e9ecef;
-    gap: 0px; /* Reduced space between items */
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .cta-button {
-    background-color: #e5e2e2cd;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .cta-button:hover {
-    background-color: #e5e2e2cd;
-  }
-  
-  .contact-logo img {
-    max-width: 150px;
-    align-self: center;
-  }
-  
-  .example-info {
-    margin-top: 20px;
-  }
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Spacing between rows */
-  }
-  
-  .form-group {
-    width: 100%;
-  }
-  
-  .full-width input,
-  .full-width textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .two-columns {
-    display: flex;
-    gap: 20px; /* Spacing between columns */
-  }
-  
-  .two-columns .input-column {
-    flex: 1;
-  }
-  
-  .input-column input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .cta-button {
-    text-decoration: none;
+//   /* Smooth scrolling for the entire page */
+//   html {
+//     scroll-behavior: smooth;
+//     font-family: 'Avenir', Arial, sans-serif;
+//   }
+  
+//   /* Body and General Styles */
+//   body {
+//     font-family: 'Avenir', Arial, sans-serif;
+//     background-color: #e9ecef;
+//     color: #080707;
+//   }
+  
+//   /* Navigation Bar */
+//   header {
+//     background-color: rgba(255, 249, 239, 0.8);
+//     padding: 40px 0;
+//     position: sticky;
+//     top: 0;
+//     z-index: 1000;
+//     width: 100%;
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//   }
+  
+//   nav {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     padding: 0 20px;
+//   }
+  
+//   nav .logo img {
+//     max-width: 150px;
+//   }
+  
+//   header nav ul {
+//     list-style-type: none;
+//     display: flex;
+//     gap: 20px;
+//   }
+  
+//   header nav ul li {
+//     display: inline;
+//   }
+  
+//   header nav ul li a {
+//     text-decoration: none;
+//     color: #fff;
+//     font-size: 18px;
+//     font-weight: bold;
+//     padding: 10px 20px;
+//     border-radius: 5px;
+//   }
+//   /* Hero Section */
+//   .hero {
+//     background-color: rgba(255, 249, 239, 0.8);
+//     color: rgba(23, 41, 116, 0.904);
+//     text-align: left; /* Align text to the left */
+//     padding: 100px 20px;
+//     display: flex; /* Enable flexbox */
+//     justify-content: center; /* Center content horizontally */
+//     align-items: center; /* Center content vertically */
+//   }
+  
+//   /* Hero Content */
+//   .hero-content {
+//     display: flex; /* Create a horizontal layout for the container */
+//     flex-direction: row; /* Align items side by side */
+//     justify-content: flex-start; /* Align content to the left */
+//     align-items: center; /* Align items to the center vertically */
+//     gap: 0; /* Remove the gap between the text and image */
+//     margin-left: 0; /* Remove left margin from the content */
+//     margin-right: 0; /* Remove right margin from the content */
+//   }
+  
+//   /* Text Content */
+//   .hero-text {
+//     display: flex;
+//     flex-direction: column; /* Stack text elements vertically */
+//     justify-content: flex-start; /* Align text to the top */
+//     gap: 5px; /* Space between text elements */
+//     margin-right: 0; /* Remove right margin from the text container */
+//     padding-right: 0; /* Remove any padding to bring text closer */
+//   }
+  
+//   /* Heading 1 */
+//   .hero h1 {
+//     font-size: 45px;
+//     margin: 0; /* Remove any extra margins */
+//   }
+  
+//   /* Heading 2 */
+//   .hero h2 {
+//     font-size: 25px;
+//     margin: 0;
+//     margin-top: 10px;
+//     color: #53a2a6;
+//   }
+  
+//   /* Paragraph */
+//   .hero p {
+//     font-size: 15px;
+//     margin: 0;
+//     margin-top: 10px;
+//     color: #333;
+//     line-height: 1.2; /* Adjust line spacing for closer lines */
+//     word-wrap: break-word; /* Break long words and prevent overflow */
+//     max-width: 350px; /* Optionally limit the paragraph width for better control */
+//     padding-right: 0; /* Ensure text is closer to the image */
+//     margin-bottom: 10px; /* Add a little space at the bottom */
+//   }
+  
+//   /* Image Styling */
+//   .hero img {
+//     max-height: 480px;
+//     width: auto; /* Maintain aspect ratio */
+//     margin-left: 20px; /* Add a small margin to the left of the image */
+//   }
+//   /* Services Section */
+//   .services {
+//     background-color: #e9ecef;
+//     padding: 80px 20px;
+//     text-align: center;
+//   }
+  
+//   .services h2 {
+//     font-size: 36px;
+//     margin-bottom: 30px;
+//   }
+  
+//   .services-cards {
+//     display: flex;
+//     justify-content: center;
+//     gap: 30px;
+//     flex-wrap: wrap; /* Allow wrapping on smaller screens */
+//   }
+  
+//   .service-card {
+//     background-color: #e5e2e2cd;
+//     padding: 30px;
+//     border-radius: 12px;
+//     width: 250px;
+  
+//     box-shadow: 0 8px 15px rgba(169, 169, 169, 0.2); /* Ash-colored shadow */
+//     transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//   }
+  
+//   .service-card h3 {
+//     font-size: 24px;
+//     margin-bottom: 10px;
+//   }
+  
+//   .service-card p {
+//     font-size: 16px;
+//     color: #555; /* Slightly dark color for text */
+//   }
+  
+//   /* Hover effect */
+//   .service-card:hover {
+//     transform: translateY(-10px); /* Slightly lift the card */
+//     box-shadow: 0 12px 25px rgba(169, 169, 169, 0.3); /* Enhanced shadow on hover */
+//     cursor: pointer; /* Change cursor to pointer */
+//   }
+  
+//   /* Add responsiveness for smaller screens */
+//   @media (max-width: 768px) {
+//     .services-cards {
+//       flex-direction: column; /* Stack cards vertically on smaller screens */
+//       gap: 20px;
+//     }
+//   }
+  
+//   /* Wrapper for Features and About Us sections */
+//   .sections-wrapper {
+//     display: flex;
+//     justify-content: center; /* Center the sections horizontally */
+//     align-items: flex-start;
+//     gap: 40px; /* Increased space between the two sections */
+//     padding: 40px 20px;
+//     background-color: #e9ecef; /* Optional wrapper background */
+//   }
+  
+//   /* Features Section */
+//   .features {
+//     flex: 1; /* Ensure sections grow equally */
+//     max-width: 45%; /* Reduce width of each section */
+//     min-height: 350px; /* Ensure enough height */
+//     background-color: #e5e2e2cd;
+//     padding: 40px 30px; /* Adjust padding for better spacing */
+//     text-align: center;
+//     border: 1px solid #ccc; /* Border for visual separation */
+//     border-radius: 10px; /* Rounded corners */
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+//   }
+  
+//   /* Features Heading */
+//   .features h2 {
+//     font-size: 36px;
+//     margin-bottom: 20px;
+//   }
+  
+//   /* Features List */
+//   .features ul {
+//     list-style-type: none; /* Remove bullet points */
+//     padding: 0; /* Remove default padding */
+//     font-size: 18px;
+//     line-height: 1.8; /* Increase line height for readability */
+//   }
+  
+//   /* About Us Section */
+//   .about-us {
+//     flex: 1; /* Ensure sections grow equally */
+//     max-width: 45%; /* Reduce width of each section */
+//     min-height: 350px; /* Ensure enough height */
+//     padding: 40px 30px; /* Adjust padding for better spacing */
+//     background-color: #e5e2e2cd;
+//     text-align: center;
+//     border: 1px solid #ccc; /* Border for visual separation */
+//     border-radius: 10px; /* Rounded corners */
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+//   }
+  
+//   /* About Us Heading */
+//   .about-us h2 {
+//     font-size: 36px;
+//     margin-bottom: 20px;
+//   }
+  
+//   /* About Us Paragraph */
+//   .about-us p {
+//     font-size: 18px;
+//     font-weight: 300;
+//     color: #555;
+//     line-height: 1.8; /* Increase line height for readability */
+//   }
+  
+//   /* Responsive Design */
+//   @media (max-width: 768px) {
+//     .sections-wrapper {
+//       flex-direction: column; /* Stack sections vertically on smaller screens */
+//       gap: 20px; /* Reduce gap between stacked sections */
+//     }
+  
+//     .features,
+//     .about-us {
+//       max-width: 100%; /* Full width for smaller screens */
+//       margin-bottom: 20px; /* Add space between stacked sections */
+//     }
+//   }
+  
+//   /* Contact Us Section */
+//   .contact-us {
+//     padding: 80px 20px;
+//     background-color: #fff;
+//     text-align: center;
+//   }
+  
+//   .contact-us h2 {
+//     font-size: 36px;
+//     margin-bottom: 20px;
+//   }
+  
+//   .contact-us p {
+//     font-size: 18px;
+//     font-weight: 300;
+//     color: #555;
+//     margin-bottom: 30px;
+//   }
+  
+//   /* Contact Form */
+//   .contact-form {
+//     max-width: 600px;
+//     margin: 0 auto;
+//     text-align: left;
+//   }
+  
+//   .contact-form .form-group {
+//     margin-bottom: 20px;
+//   }
+  
+//   .contact-form label {
+//     font-size: 16px;
+//   }
+  
+//   .contact-form input,
+//   .contact-form textarea {
+//     width: 100%;
+//     padding: 12px;
+//     border: 1px solid #ddd;
+//     border-radius: 5px;
+//     font-size: 16px;
+//   }
+  
+//   .contact-form button {
+//     background-color: #4caf50;
+//     color: white;
+//     padding: 15px 30px;
+//     font-size: 18px;
+//     border: none;
+//     border-radius: 5px;
+//     cursor: pointer;
+//   }
+  
+//   .contact-form button:hover {
+//     background-color: #45a049;
+//   }
+//   /* Footer Info Section */
+//   .footer-info-content {
+//     background-color: #e5e2e2cd;
+//     color: #000000;
+//     padding: 50px 20px;
+//     display: flex;
+//     justify-content: space-between; /* Spread the sections across */
+//     align-items: flex-start;
+//     gap: 0; /* Add some space between the left and right sections */
+//     flex-wrap: wrap; /* Allow wrapping on smaller screens */
+//   }
+  
+//   .footer-info-left {
+//     margin-left: 40px;
+//   }
+  
+//   .footer-info-right {
+//     margin-right: 40px;
+//   }
+  
+//   /* Footer Logo Section */
+//   .footer-info .footer-logo {
+//     flex: 0 1 150px; /* Fix logo width */
+//     text-align: left; /* Align the logo left */
+//     margin-bottom: 10px;
+//   }
+  
+//   /* Footer Details Section */
+//   .footer-info .footer-details {
+//     flex: 1 1 60%; /* Allow this to take 60% of space */
+//     text-align: left;
+//     margin-top: 20px;
+//     margin-bottom: 20px;
+//   }
+//   .footer-info .footer-details p {
+//     margin-bottom: 10px;
+//   }
+//   /* Footer Social Media Section */
+//   .footer-info .footer-social {
+//     flex: 0 1 35%; /* Take 35% of the space for the social section */
+//     text-align: left;
+//     margin-bottom: 20px;
+//   }
+  
+//   /* Footer Contact Section */
+//   .footer-info .footer-contact p {
+//     margin-top: 20px;
+//     margin-bottom: 10px;
+//   }
+  
+//   /* Social Media Links */
+//   .footer-info .social-links {
+//     display: flex;
+//     justify-content: left;
+//     gap: 20px;
+//     margin-top: 10px;
+//   }
+  
+//   .footer-info .social-links a img {
+//     border-radius: 50%;
+//     transition: transform 0.3s;
+//   }
+  
+//   /* Social Icons Hover Effect */
+//   .footer-info .social-links a img:hover {
+//     transform: scale(1.1);
+//   }
+  
+//   /* Mobile Adjustments */
+//   @media (max-width: 768px) {
+//     .footer-info {
+//       flex-direction: column; /* Stack sections vertically on smaller screens */
+//       text-align: left;
+//     }
+  
+//     /* Adjust Footer Logo Section */
+//     .footer-info .footer-logo {
+//       margin-bottom: 20px; /* Add space between logo and other sections */
+//       text-align: center; /* Center logo on smaller screens */
+//     }
+  
+//     /* Make other sections take full width on mobile */
+//     .footer-info .footer-details,
+//     .footer-info .footer-social {
+//       flex: 1 1 100%; /* Full width for each section */
+//       margin-bottom: 20px;
+//     }
+  
+//     /* Adjust social media */
+//     .footer-info .social-links {
+//       justify-content: flex-start; /* Align social media icons to the left */
+//     }
+//   }
+  
+//   /* Additional Sections and Styles for Contact, Testimonials, etc. */
+//   .contact-us {
+//     padding: 2px;
+  
+//     background-color: #e5e2e2cd;
+//     text-align: center;
+//     margin: 10px auto; /* Adds margin around the contact section */
+//     border-radius: 10px; /* Adds rounded corners */
+//     max-width: 80%; /* Optional: to limit the width */
+//     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+//   }
+  
+//   .contact-us h2 {
+//     font-size: 36px;
+//     margin-bottom: 20px;
+//   }
+  
+//   .contact-us p {
+//     font-size: 18px;
+//     font-weight: 300;
+//     color: #555;
+//     margin-bottom: 30px;
+//   }
+  
+//   /* Contact Form */
+//   .contact-form {
+//     max-width: 600px;
+//     margin: 0 auto;
+//   }
+  
+//   .contact-form .form-group {
+//     margin-bottom: 10px;
+//   }
+  
+//   .contact-form label {
+//     font-size: 16px;
+//     display: block;
+//     margin-bottom: 8px;
+//   }
+  
+//   .contact-form input,
+//   .contact-form textarea {
+//     width: 100%;
+//     padding: 12px;
+//     border: 1px solid #ddd;
+//     border-radius: 5px;
+//     font-size: 16px;
+//   }
+  
+//   .contact-form button {
+//     background-color: rgba(19, 55, 122, 0.925);
+//     color: white;
+//     padding: 15px 30px;
+//     font-size: 18px;
+//     border: none;
+//     border-radius: 15px;
+//     cursor: pointer;
+//   }
+  
+//   .contact-form button:hover {
+//     background-color: rgba(19, 55, 122, 0.925);
+//   }
+//   .contact-us-content {
+//     display: flex;
+//     justify-content: center;
+//     align-items: flex-start;
+//     padding: 10px;
+//   }
+  
+//   .contact-us-inner {
+//     display: flex;
+//     width: 100%;
+//     max-width: 1200px;
+//     justify-content: space-between;
+//   }
+  
+//   .contact-us-left {
+//     flex: 1;
+//     padding-right: 20px;
+//     padding-top: 60px;
+//     margin-top: 80px;
+//   }
+//   input,
+//   textarea {
+//     background-color: #e9ecef;
+//   }
+  
+//   .contact-us-right {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     border: 2px solid #e9ecef; /* Border width and color */
+//     border-radius: 30px; /* Rounded corners */
+//     padding: 40px 0px; /* Increased top padding and adjusted left-right padding */
+//     background-color: #e9ecef;
+//     gap: 0px; /* Reduced space between items */
+//   }
+  
+//   .form-group {
+//     margin-bottom: 20px;
+//   }
+  
+//   .cta-button {
+//     background-color: #e5e2e2cd;
+//     color: #fff;
+//     border: none;
+//     padding: 10px 20px;
+//     cursor: pointer;
+//     border-radius: 4px;
+//   }
+  
+//   .cta-button:hover {
+//     background-color: #e5e2e2cd;
+//   }
+  
+//   .contact-logo img {
+//     max-width: 150px;
+//     align-self: center;
+//   }
+  
+//   .example-info {
+//     margin-top: 20px;
+//   }
+//   .contact-form {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 20px; /* Spacing between rows */
+//   }
+  
+//   .form-group {
+//     width: 100%;
+//   }
+  
+//   .full-width input,
+//   .full-width textarea {
+//     width: 100%;
+//     padding: 10px;
+//     border: 1px solid #ccc;
+//     border-radius: 5px;
+//   }
+  
+//   .two-columns {
+//     display: flex;
+//     gap: 20px; /* Spacing between columns */
+//   }
+  
+//   .two-columns .input-column {
+//     flex: 1;
+//   }
+  
+//   .input-column input {
+//     width: 100%;
+//     padding: 10px;
+//     border: 1px solid #ccc;
+//     border-radius: 5px;
+//   }
+  
+//   .cta-button {
+//     text-decoration: none;
     
-    color: #fff;
-    font-size: 13px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: rgba(19, 55, 122, 0.925); /* 80% opacity */
+//     color: #fff;
+//     font-size: 13px;
+//     font-weight: bold;
+//     padding: 10px 20px;
+//     border-radius: 5px;
+//     background-color: rgba(19, 55, 122, 0.925); /* 80% opacity */
   
-    transition: transform 0.2s ease; /* Smooth scaling transition */
-    display: inline-block; /* Ensure the element behaves like a block element */
-  }
+//     transition: transform 0.2s ease; /* Smooth scaling transition */
+//     display: inline-block; /* Ensure the element behaves like a block element */
+//   }
   
-  .cta-button:hover {
-    transform: scale(0.9);
-    background-color: rgba(
-      19,
-      55,
-      122,
-      0.925
-    ); /* Shrinks the button to 95% of its size */
-  }
+//   .cta-button:hover {
+//     transform: scale(0.9);
+//     background-color: rgba(
+//       19,
+//       55,
+//       122,
+//       0.925
+//     ); /* Shrinks the button to 95% of its size */
+//   }
   
-  footer {
-    background-color: #e9ecef;
-    height: auto;
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  .bank-logo  {
-      height: 100px;
-      width:   300px;
-      padding-left: 50px;
-  }
-  .logo {
-      width: auto;
-      height: auto;
-  }
+//   footer {
+//     background-color: #e9ecef;
+//     height: auto;
+//     text-align: center;
+//     padding-top: 20px;
+//     padding-bottom: 20px;
+//   }
+//   .bank-logo  {
+//       height: 100px;
+//       width:   300px;
+//       padding-left: 50px;
+//   }
+//   .logo {
+//       width: auto;
+//       height: auto;
+//   }

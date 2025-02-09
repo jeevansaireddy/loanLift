@@ -17,6 +17,7 @@ export class LoanApplicationFilterComponent implements OnInit, OnChanges {
 
  
   // Filter properties
+  selectedRole: string = '';
   selectedPartner: string = '';
   selectedProject: string = '';
   selectedStatus: string = '';
@@ -24,6 +25,7 @@ export class LoanApplicationFilterComponent implements OnInit, OnChanges {
   selectedYear: string = '';
 
   // Unique filter options
+  uniqueRoles: string[] = [];
   uniquePartners: string[] = [];
   uniqueProjects: string[] = [];
   uniqueYears: number[] = [];
@@ -71,6 +73,12 @@ export class LoanApplicationFilterComponent implements OnInit, OnChanges {
           .filter(partner => partner && partner.trim() !== '')
       )];
 
+      this.uniqueRoles = [...new Set(
+        this.loanApplications
+          .map(app => app.role)
+          .filter(role => role && role.trim() !== '')
+      )];
+
       this.uniqueProjects = [...new Set(
         this.loanApplications
           .map(app => app.project_name)
@@ -100,6 +108,7 @@ export class LoanApplicationFilterComponent implements OnInit, OnChanges {
       
       return (
         (!this.selectedPartner || app.partner === this.selectedPartner) &&
+        (!this.selectedRole || app.role === this.selectedRole) &&
         (!this.selectedProject || app.project_name === this.selectedProject) &&
         (!this.selectedStatus || app.loan_status === this.selectedStatus) &&
         monthMatches &&

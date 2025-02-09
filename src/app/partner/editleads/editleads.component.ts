@@ -16,7 +16,7 @@ interface UploadedFile {
 @Component({
   selector: 'app-editleads',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './editleads.component.html',
   styleUrls: ['./editleads.component.scss']
 })
@@ -48,11 +48,11 @@ export class EditleadsComponent {
     { section: 'Address', id: 'permanent-pincode', label: 'Permanent Pincode', type: 'text', inputType: 'text', controlName: 'permanentPincode', placeholder: 'Enter locality pincode', errorMessage: 'Pincode is required.' },
     { section: 'Address', id: 'permanent-state', label: 'Permanent State', type: 'text', inputType: 'text', controlName: 'permanentState', placeholder: 'State will be based on your pincode', errorMessage: '' },
     { section: 'Address', id: 'permanent-city', label: 'Permanent City', type: 'text', inputType: 'text', controlName: 'permanentCity', placeholder: 'City will be based on your pincode', errorMessage: '' },
+    { section: 'Address', id: 'current-address-same', label: 'Current Address Same as Permanent Address', type: 'checkbox', controlName: 'isCurrentSameAsPermanent', errorMessage: '' },
     { section: 'Address', id: 'current-address', label: 'Current Address', type: 'text', inputType: 'text', controlName: 'currentAddress', placeholder: 'Mandatory', errorMessage: 'Current address is required.' },
     { section: 'Address', id: 'current-pincode', label: 'Current Pincode', type: 'text', inputType: 'text', controlName: 'currentPincode', placeholder: 'Enter locality pincode', errorMessage: 'Pincode is required.' },
     { section: 'Address', id: 'current-state', label: 'Current State', type: 'text', inputType: 'text', controlName: 'currentState', placeholder: 'State will be based on your pincode', errorMessage: '' },
     { section: 'Address', id: 'current-city', label: 'Current City', type: 'text', inputType: 'text', controlName: 'currentCity', placeholder: 'City will be based on your pincode', errorMessage: '' },
-    { section: 'Address', id: 'current-address-same', label: 'Current Address Same as Permanent Address', type: 'checkbox', controlName: 'isCurrentSameAsPermanent', errorMessage: '' },
     
     // Professional Information Section
     { section: 'Professional Information', id: 'employment-type', label: 'Type of Employment', type: 'select', controlName: 'employmentType', placeholder: 'Please select one option', options: ['Self-Employed', 'Salaried'], errorMessage: '' },
@@ -95,11 +95,11 @@ export class EditleadsComponent {
       permanentPincode: ['', Validators.required],
       permanentState: [''],
       permanentCity: [''],
+      isCurrentSameAsPermanent: [false],
       currentAddress: ['', Validators.required],
       currentPincode: ['', Validators.required],
       currentState: [''],
       currentCity: [''],
-      isCurrentSameAsPermanent: [false],
       employmentType: ['', Validators.required],
       companyName: ['', Validators.required],
       monthlyIncome: ['', Validators.required],
@@ -119,6 +119,41 @@ export class EditleadsComponent {
       closingManager: ['', Validators.required]
       
     });
+
+    this.leadForm.get('isCurrentSameAsPermanent')?.valueChanges.subscribe(checked => {
+      if (checked) {
+        this.leadForm.patchValue({
+          currentAddress: this.leadForm.get('permanentAddress')?.value,
+          currentPincode: this.leadForm.get('permanentPincode')?.value,
+          currentState: this.leadForm.get('permanentState')?.value,
+          currentCity: this.leadForm.get('permanentCity')?.value,
+        });
+
+        // Disable fields so they cannot be edited manually
+        this.leadForm.get('currentAddress')?.disable();
+        this.leadForm.get('currentPincode')?.disable();
+        this.leadForm.get('currentState')?.disable();
+        this.leadForm.get('currentCity')?.disable();
+      } else {
+        // Enable fields for manual input
+        this.leadForm.get('currentAddress')?.enable();
+        this.leadForm.get('currentPincode')?.enable();
+        this.leadForm.get('currentState')?.enable();
+        this.leadForm.get('currentCity')?.enable();
+
+        // Clear values to allow new input
+        this.leadForm.patchValue({
+          currentAddress: '',
+          currentPincode: '',
+          currentState: '',
+          currentCity: '',
+        });
+      }
+    });
+
+
+
+
     this.loadLeadData();
   
   }  
