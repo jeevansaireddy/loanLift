@@ -8,8 +8,8 @@ import { catchError } from 'rxjs/operators';
 })
 export class AccountserviceService {
 
-  // private BASE_URL = 'http://127.0.0.1:8000/';
-   private BASE_URL = 'https://www.loanlift.co.in/';
+  private BASE_URL = 'http://127.0.0.1:8000/';
+  //  private BASE_URL = 'https://www.loanlift.co.in/';
 
   
 

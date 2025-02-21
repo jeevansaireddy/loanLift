@@ -60,6 +60,7 @@
       <th class="border p-2">Application ID</th>
       <th class="border p-2">Applicant Name</th>
       <th class="border p-2">Disbursement</th>
+      <th class="border p-2">Payout</th>
       <th class="border p-2">Loan Amount</th>
       <th class="border p-2">Loan Status</th>
       <th class="border p-2">Project Name</th>
@@ -71,6 +72,7 @@
       <td class="border p-2">{{ row.application_id }}</td>
       <td class="border p-2">{{ row.applicant_name }}</td>
       <td class="border p-2">{{ row.disbursed_amount || "-"}}</td>
+      <td class="border p-2">{{ (row.payout_percentage/100)* row.disbursed_amount || "-"}}</td>
       <td class="border p-2">{{ row.loan_amount }}</td>
       <td class="border p-2">{{ row.loan_status }}</td>
       <td class="border p-2">{{ row.name_of_closing_agent }}</td>

@@ -7,8 +7,8 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthserviceService {
-  // private apiUrl = 'http://127.0.0.1:8000/users';
-   private apiUrl = 'https://www.loanlift.co.in/users';
+  private apiUrl = 'http://127.0.0.1:8000/users';
+  //  private apiUrl = 'https://www.loanlift.co.in/users';
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 

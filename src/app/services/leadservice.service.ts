@@ -7,9 +7,9 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LeadserviceService {
-  // private apiUrl = 'http://127.0.0.1:8000';
+  private apiUrl = 'http://127.0.0.1:8000';
 
-  private apiUrl = 'https://www.loanlift.co.in';
+  // private apiUrl = 'https://www.loanlift.co.in';
 
 
   constructor(private http: HttpClient) { }
@@ -77,7 +77,7 @@ export class LeadserviceService {
     }
   }
 
-  updateLoanApplicationStatus(applicationId: number, loanStatus: string, disbursedAmount: number): Observable<any> {
+  updateLoanApplicationStatus(applicationId: number, loanStatus: string, disbursedAmount: number, payout_percentage: number): Observable<any> {
     try {
       const headers = this.getHeaders();
       
@@ -87,6 +87,7 @@ export class LeadserviceService {
     // Append loan status and disbursed amount to FormData
     formData.append('loan_status', loanStatus);
     formData.append('disbursed_amount', disbursedAmount.toString());
+    formData.append('payout_percentage', payout_percentage.toString());
   
       // Make the PUT request with the updated payload
       return this.http.put(

@@ -28,11 +28,91 @@ loanTenure: number = 20;
 monthlyEMI: string = '₹0';
 totalInterest: string = '₹0';
 totalAmount: string = '₹0';
-private chart: any;
 
+  // Calculator inputs with default values
+  monthlyIncome: number = 0;
+  monthlyExpenses: number = 0;
+  existingEMI: number = 0;
+  eligibilityinterestRate: number = 8.5;
+  eligibilityloanTenure: number = 20;
+
+  // Calculator outputs
+  maxLoanAmount: string = '₹0';
+  maxEMICapacity: string = '₹0';
+  netIncome: string = '₹0';
 ngOnInit() {
   this.calculateEMI();
+  this.calculateEligibility();
 }
+
+calculateEligibility() {
+  // Calculate net monthly income
+
+  // Calculate disposable income (56% of net income)
+  const netIncome = this.monthlyIncome - this.monthlyExpenses - this.existingEMI;
+  const maxEMIAllowed = netIncome * 0.56;
+  
+
+  // Calculate maximum loan amount using EMI formula
+  // P = EMI * [1 - (1 + r)^(-n)] / r
+  const monthlyRate = (this.eligibilityinterestRate / 12) / 100;
+  const months = this.eligibilityloanTenure * 12;
+  
+  const maxLoanAmount = maxEMIAllowed * 
+    (1 - Math.pow(1 + monthlyRate, -months)) / monthlyRate;
+
+  // Format and set the outputs
+  if(Math.round(maxLoanAmount)<=0){
+    this.maxLoanAmount = '₹0';
+    this.maxEMICapacity = '₹0';
+  }
+  else{
+  this.maxLoanAmount = this.formatCurrency(Math.round(maxLoanAmount));
+  this.maxEMICapacity = this.formatCurrency(Math.round(maxEMIAllowed));
+  }
+
+  
+  this.netIncome = this.formatCurrency(Math.round(netIncome));
+}
+
+onInputEChange(event: Event, type: 'income' | 'expenses' | 'emi' | 'rate' | 'tenure') {
+  const value = (event.target as HTMLInputElement).value;
+  
+  switch(type) {
+    case 'income':
+      this.monthlyIncome = this.clamp(Number(value), 0, 1000000);
+      break;
+    case 'expenses':
+      this.monthlyExpenses = this.clamp(Number(value), 0, 500000);
+      break;
+    case 'emi':
+      this.existingEMI = this.clamp(Number(value), 0, 300000);
+      break;
+    case 'rate':
+      this.interestRate = this.clamp(Number(value), 7, 15);
+      break;
+    case 'tenure':
+      this.loanTenure = this.clamp(Number(value), 1, 30);
+      break;
+  }
+  
+  this.calculateEligibility();
+}
+
+private formatCurrency(amount: number): string {
+  const formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
+  return formatter.format(amount);
+}
+
+private clamp(value: number, min: number, max: number): number {
+  return Math.min(Math.max(value, min), max);
+}
+
 
 calculateEMI() {
   const P = this.loanAmount;

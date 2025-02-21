@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LeadserviceService } from '../../services/leadservice.service';
 import { EditleadsComponent } from '../../partner/editleads/editleads.component';
+import { PincodeService } from '../../pincode.service';
 
 
 interface UploadedFile {
@@ -26,9 +27,10 @@ export class ViewleadComponent extends EditleadsComponent {
     fb: FormBuilder, 
     router: Router, 
     leadser: LeadserviceService, 
-    route: ActivatedRoute
+    route: ActivatedRoute,
+    pincodeService: PincodeService
   ) {
-    super(fb, router, leadser, route);
+    super(fb, router, leadser, route, pincodeService );
   }
 
   override loadLeadData() {

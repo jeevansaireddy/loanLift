@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink} from '@angular/router';
 import { LeadserviceService } from '../../services/leadservice.service';
 import { secureHeapUsed } from 'crypto';
+import { PincodeService } from '../../pincode.service';
 
 @Component({
   selector: 'app-adminaddlead',
@@ -37,15 +38,10 @@ export class AdminaddleadComponent {
       { section: 'General Information', id: 'aadhaar', label: 'Aadhaar / VID Number', type: 'text', inputType: 'text', controlName: 'aadhaar', placeholder: 'Enter 12 digit aadhaar number', errorMessage: 'Enter a valid 12-digit Aadhaar number.' },
        
       // Address Section
-      { section: 'Address', id: 'permanent-address', label: 'Permanent Address', type: 'text', inputType: 'text', controlName: 'permanentAddress', placeholder: 'Mandatory', errorMessage: 'Permanent address is required.' },
-      { section: 'Address', id: 'permanent-pincode', label: 'Permanent Pincode', type: 'text', inputType: 'text', controlName: 'permanentPincode', placeholder: 'Enter locality pincode', errorMessage: 'Pincode is required.' },
-      { section: 'Address', id: 'permanent-state', label: 'Permanent State', type: 'text', inputType: 'text', controlName: 'permanentState', placeholder: 'State will be based on your pincode', errorMessage: '' },
-      { section: 'Address', id: 'permanent-city', label: 'Permanent City', type: 'text', inputType: 'text', controlName: 'permanentCity', placeholder: 'City will be based on your pincode', errorMessage: '' },
       { section: 'Address', id: 'current-address', label: 'Current Address', type: 'text', inputType: 'text', controlName: 'currentAddress', placeholder: 'Mandatory', errorMessage: 'Current address is required.' },
       { section: 'Address', id: 'current-pincode', label: 'Current Pincode', type: 'text', inputType: 'text', controlName: 'currentPincode', placeholder: 'Enter locality pincode', errorMessage: 'Pincode is required.' },
       { section: 'Address', id: 'current-state', label: 'Current State', type: 'text', inputType: 'text', controlName: 'currentState', placeholder: 'State will be based on your pincode', errorMessage: '' },
       { section: 'Address', id: 'current-city', label: 'Current City', type: 'text', inputType: 'text', controlName: 'currentCity', placeholder: 'City will be based on your pincode', errorMessage: '' },
-      { section: 'Address', id: 'current-address-same', label: 'Current Address Same as Permanent Address', type: 'checkbox', controlName: 'isCurrentSameAsPermanent', errorMessage: '' },
       
       // Professional Information Section
       { section: 'Professional Information', id: 'employment-type', label: 'Type of Employment', type: 'select', controlName: 'employmentType', placeholder: 'Please select one option', options: ['Self-Employed', 'Salaried'], errorMessage: '' },
@@ -68,13 +64,50 @@ export class AdminaddleadComponent {
   { section: 'Documents', id: 'salary-slips', label: 'Last 3 Months Salary Slips', type: 'file', controlName: 'salarySlips', errorMessage: 'Salary slips are required.' },
   { section: 'Documents', id: 'bank-statements', label: 'Bank Statements', type: 'file', controlName: 'bankStatements', errorMessage: 'Bank statements are required.' },
   { section: 'Documents', id: 'form-16', label: 'Form 16', type: 'file', controlName: 'form16', errorMessage: 'Form 16 is required.' },
-      // Other Section
-      { section: 'Other', id: 'closing-manager', label: 'Project Name', type: 'text', inputType: 'text', controlName: 'closingManager', placeholder: 'Enter name of Project', errorMessage: 'Project name is required.' },
-      // { section: 'Other', id: 'partner-name', label: 'Partner Name', type: 'text', inputType: 'text', controlName: 'partnerName', placeholder: 'Enter name of Partner', errorMessage: 'Partner name is required.' }
+      // Project Section
+      { section: 'Project details', id: 'project-name', label: 'Project Name', type: 'text', inputType: 'text', controlName: 'projectName', placeholder: 'Enter name of Project', errorMessage: 'Project name is required.' },
+      { section: 'Project details', id: 'flat_no', label: 'Flat No', type: 'text', inputType: 'text', controlName: 'flatNo', placeholder: 'Enter Flat No', errorMessage: 'Flat No is required.' },
+      { section: 'Project details', id: 'block_no', label: 'Block No', type: 'text', inputType: 'text', controlName: 'blockNo', placeholder: 'Enter Block No', errorMessage: 'Block No is required.' }
+  
+  
     ];
+
+    ngOnInit() {
+      // Listen for pincode changes
+      this.leadForm.get('currentPincode')?.valueChanges.subscribe((pincode: string) => {
+        if (pincode && this.leadForm.get('currentPincode')?.valid) {
+            if (pincode.length === 6) {
+                this.pincodeService.getCityAndStateByPincode(pincode).subscribe({
+                    next: (response) => {
+                        console.log('API Response:', response);
+                        if (response.Status === 'Success' && response.PostOffice.length > 0) {
+                            const postOffice = response.PostOffice[0];
+                            this.leadForm.patchValue({
+                                currentCity: postOffice.Division,
+                                currentState: postOffice.State
+                            });
+                        } else {
+                            this.leadForm.patchValue({
+                                currentCity: '',
+                                currentState: ''
+                            });
+                        }
+                    },
+                    error: (error) => {
+                        console.error('API Error:', error);
+                        this.leadForm.patchValue({
+                            currentCity: '',
+                            currentState: ''
+                        });
+                    }
+                });
+            }
+        }
+      });
+    }
     
   
-    constructor(private fb: FormBuilder, private router: Router, private leadService: LeadserviceService) {
+    constructor(private fb: FormBuilder, private router: Router, private leadService: LeadserviceService, public pincodeService: PincodeService) {
       this.leadForm = this.fb.group({
         fullName: ['', Validators.required],
         gender: ['', Validators.required],
@@ -85,33 +118,29 @@ export class AdminaddleadComponent {
         altMobile: ['', Validators.pattern('^[0-9]{10}$')],
         pan: ['', [Validators.required, Validators.pattern('^[A-Z]{5}[0-9]{4}[A-Z]{1}$')]],
         aadhaar: ['', [Validators.required, Validators.pattern('^[0-9]{12}$')]],
-        permanentAddress: ['', Validators.required],
-        permanentPincode: ['', Validators.required],
-        permanentState: [''],
-        permanentCity: [''],
         currentAddress: ['', Validators.required],
-        currentPincode: ['', Validators.required],
-        currentState: [''],
-        currentCity: [''],
-        isCurrentSameAsPermanent: [false],
+        currentPincode: ['', [Validators.required, Validators.pattern('^[1-9][0-9]{5}$')]],
+        currentState: ['', Validators.required],
+        currentCity: ['', Validators.required],
         employmentType: ['', Validators.required],
         companyName: ['', Validators.required],
         monthlyIncome: ['', Validators.required],
-        officialMail: ['', [Validators.required, Validators.email]],
+        officialMail: ['', [Validators.email, Validators.required]],
         workExperience: ['', Validators.required],
-        existingEMIs: [''],
+        existingEMIs: ['',[Validators.required,Validators.pattern('^[0-9]*$')]],
         annualIncome: ['', Validators.required],
-        annualProfit: [''],
+        annualProfit: ['', Validators.required],
         loanProduct: ['', Validators.required],
         loanAmount: ['', Validators.required],
-        loanTenure: [''],
-        panCardDoc: [[], Validators.required],
-      aadhaarCardDoc: [[], Validators.required],
-      salarySlips: [[], Validators.required],
-      bankStatements: [[], Validators.required],
-      form16: [[], Validators.required],
-        closingManager: ['', Validators.required]
-        
+        loanTenure: ['', Validators.required],
+        panCardDoc: [[]],
+        aadhaarCardDoc: [[]],
+        salarySlips: [[]],
+        bankStatements: [[]],
+        form16: [[]],
+        projectName: ['', Validators.required],
+        flatNo: ['', Validators.required],
+        blockNo: ['', Validators.required],
       });
     
     }  

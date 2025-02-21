@@ -25,6 +25,7 @@ export interface LoanApplication {
   project_name: string;
   isEditing?: boolean;
   originalData?: any;
+  payout: number;
   documents: {
     aadhar: { path: string; content: string } | null;
     pan_card: { path: string; content: string } | null;
@@ -190,11 +191,11 @@ export class AdmindashboardComponent implements OnInit {
   }
 
   // Save changes made to a row
-  async saveChanges(applicationId: number, loan_status: string, disbursed_amount: number, row: LoanApplication) {
+  async saveChanges(applicationId: number, loan_status: string, disbursed_amount: number, payout_percentage: number, row: LoanApplication) {
     try {
       this.loading = true;
       // Make API call to save changes
-       await this.loanService.updateLoanApplicationStatus(applicationId, loan_status, disbursed_amount).toPromise();
+       await this.loanService.updateLoanApplicationStatus(applicationId, loan_status, disbursed_amount, payout_percentage).toPromise();
       
       row.isEditing = false;
       delete row.originalData;
@@ -284,9 +285,10 @@ export class AdmindashboardComponent implements OnInit {
         loan_amount: Number(apiResponse.loan_amount) || 0,
         loan_status: apiResponse.loan_status,
         disbursed_amount: Number(apiResponse.disbursed_amount || 0),
-        project_name: String(apiResponse.name_of_closing_agent || ''),
+        project_name: String(apiResponse.project_name|| ''),
         modified_at: String(apiResponse.modified_at || ''),
         partner: String(apiResponse.created_by.name || ''),
+        payout: Number(apiResponse.payout_percentage || 0),
         // created_at: String(api)
         documents: {
           aadhar: mapDocument(apiResponse.documents?.aadhar),
@@ -427,6 +429,22 @@ export class AdmindashboardComponent implements OnInit {
         this.loading = false;
       }
     }
+
+    onPayoutInput(event: Event) {
+      const input = event.target as HTMLInputElement;
+      // Remove non-numeric characters and parse the input as a number
+      let value = input.value.replace(/[^0-9]/g, '');
+    
+      // Enforce 0-100 range
+      if (value) {
+        const numericValue = Math.min(100, Math.max(0, parseInt(value, 10)));
+        input.value = numericValue.toString();
+      } else {
+        input.value = '0';
+      }
+    }
+    
+
 
     // Optional: Add method to refresh data
     refreshData() {

@@ -57,6 +57,7 @@
         <th class="border p-2">Name</th>
         <th class="border p-2">Project</th>
         <th class="border p-2">Applicant Name</th>
+        <th class="border p-2">Payout (%)</th>
         <th class="border p-2">Disbursement</th>
         <th class="border p-2">Loan Amount</th>
         <th class="border p-2">Loan Status</th>
@@ -72,7 +73,18 @@
         <td class="border p-2">{{ row.applicant_name }}</td>
         <td class="border p-2">
           <input 
-            type="text" 
+            type="number" 
+            [(ngModel)]="row.payout"
+            [disabled]="!row.isEditing"
+            min="0"
+            max="100"
+            (input)="onPayoutInput($event)"
+            class="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+        </td>
+        <td class="border p-2">
+          <input 
+            type="number" 
             [(ngModel)]="row.disbursed_amount"
             [disabled]="!row.isEditing"
             class="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -123,7 +135,7 @@
             </button>
             <button 
               *ngIf="row.isEditing"
-              (click)="saveChanges(row.application_id, row.loan_status, row.disbursed_amount, row)"
+              (click)="saveChanges(row.application_id, row.loan_status, row.disbursed_amount, row.payout, row)"
               class="px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700"
             >
               <i class="fas fa-save mr-1"></i> Save
