@@ -88,6 +88,8 @@ export class PartnerdashboardComponent {
       },
       (error) => {
         console.error('Error fetching partner loan applications:', error);
+        this.router.navigate(['/partner/login']);
+        
       }
     )
   }

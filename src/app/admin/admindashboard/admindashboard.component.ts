@@ -219,6 +219,7 @@ export class AdmindashboardComponent implements OnInit {
       .pipe(
         catchError(error => {
           this.error = 'Failed to fetch loan applications. Please try again later.';
+          this.router.navigate(['/admin/login']);
           console.error('Error fetching loan applications:', error);
           return throwError(() => error);
         })

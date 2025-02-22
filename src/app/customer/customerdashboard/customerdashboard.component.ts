@@ -89,6 +89,8 @@ export class CustomerdashboardComponent {
       },
       (error) => {
         console.error('Error fetching customer loan applications:', error);
+        this.router.navigate(['/customer/login']);
+
       }
     )
   }
